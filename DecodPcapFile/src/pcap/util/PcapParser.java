@@ -14,7 +14,6 @@ public class PcapParser {
 	 * @author Zh_张宇
 	 * @author En_Arhur Parser .pcap file
 	 */
-
 	public static Pcap unpack(InputStream is) throws IOException {
 		byte[] buffer_4 = new byte[4];
 		byte[] buffer_2 = new byte[2];
@@ -28,88 +27,104 @@ public class PcapParser {
 			System.err.println("header_megic不足4字节");
 			return null;
 		}
-		header.setMagic(byteArrayToInt(reverseByteArray(buffer_4)));
-		
+		reverseByteArray(buffer_4);
+		header.setMagic(byteArrayToInt(buffer_4));
+
 		m = is.read(buffer_2);
 		if (m != 2) {
 			System.err.println("header_majorVersion不足2字节");
 			return null;
 		}
-		header.setmajor_version(byteArrayToShort(reverseByteArray(buffer_2)));
+		reverseByteArray(buffer_2);
+		header.setmajor_version(byteArrayToShort(buffer_2));
 
 		m = is.read(buffer_2);
 		if (m != 2) {
 			System.err.println("header_minorVersion不足2字节");
 			return null;
 		}
-		header.setMinor_version(byteArrayToShort(reverseByteArray(buffer_2)));
-		
+		reverseByteArray(buffer_2);
+		header.setMinor_version(byteArrayToShort(buffer_2));
+
 		m = is.read(buffer_4);
 		if (m != 4) {
 			System.err.println("header_timeZone不足4字节");
 			return null;
 		}
-		header.setTimezone(byteArrayToInt(reverseByteArray(buffer_4)));
-		
+		reverseByteArray(buffer_4);
+		header.setTimezone(byteArrayToInt(buffer_4));
+
 		m = is.read(buffer_4);
 		if (m != 4) {
 			System.err.println("header_sigFlags不足4字节");
 			return null;
 		}
-		header.setSigflags(byteArrayToInt(reverseByteArray(buffer_4)));
-		
+		reverseByteArray(buffer_4);
+		header.setSigflags(byteArrayToInt(buffer_4));
+
 		m = is.read(buffer_4);
 		if (m != 4) {
 			System.err.println("header_snaplen不足4字节");
 			return null;
 		}
-		header.setSnaplen(byteArrayToInt(reverseByteArray(buffer_4)));
+		reverseByteArray(buffer_4);
+		header.setSnaplen(byteArrayToInt(buffer_4));
 
 		m = is.read(buffer_4);
 		if (m != 4) {
 			System.err.println("header_linkType不足4字节");
 			return null;
 		}
-		header.setLinktype(byteArrayToInt(reverseByteArray(buffer_4)));
-		
+		reverseByteArray(buffer_4);
+		header.setLinktype(byteArrayToInt(buffer_4));
+
 		pcap.setHeader(header);
-		
+
 		/**
 		 * read pcap data zone
 		 */
 		List<PcapData> dataList = new ArrayList<PcapData>();
-		PcapData data = new PcapData();
-		byte[] content;
-		while (true) {
+		while (m>0) {
+			PcapData data = new PcapData();
 			m = is.read(buffer_4);
 			if (m < 4) {
 				System.err.println("pcap package header time_s <4B");
 				break;
 			}
-			data.setTime_s(byteArrayToInt(reverseByteArray(buffer_4)));
+			reverseByteArray(buffer_4);
+			data.setTime_s(byteArrayToInt(buffer_4));
+
 			m = is.read(buffer_4);
 			if (m < 4) {
 				System.err.println("pcap package header time_ms <4B");
 				break;
 			}
-			data.setTime_ms(byteArrayToInt(reverseByteArray(buffer_4)));
+			reverseByteArray(buffer_4);
+			data.setTime_ms(byteArrayToInt(buffer_4));
+			
 			m = is.read(buffer_4);
 			if (m < 4) {
 				System.err.println("pcap package header pLength <4B");
 				break;
 			}
-			data.setpLength(byteArrayToInt(reverseByteArray(buffer_4)));
+			int IPFrameLength00 = byteArrayToInt(buffer_4);
+			reverseByteArray(buffer_4);
+			int IPFrameLength = byteArrayToInt(buffer_4);
+			data.setpLength(IPFrameLength);
+			
 			m = is.read(buffer_4);
 			if (m < 4) {
 				System.err.println("pcap package header length <4B");
 				break;
 			}
-			data.setLength(byteArrayToInt(reverseByteArray(buffer_4)));
-			int IPFrameLength = data.getpLength();
-			content = new byte[IPFrameLength];
+			reverseByteArray(buffer_4);
+			data.setLength(byteArrayToInt(buffer_4));
+			
+//			int IPFrameLength = data.getpLength();
+			byte[] content = new byte[IPFrameLength];
 			m = is.read(content);
 			if (m < IPFrameLength) {
-				System.err.println("pcap package header time_s < IPFrameLength: "+IPFrameLength);
+				System.err.println("pcap package header time_s < IPFrameLength: " + IPFrameLength);
 				break;
 			}
 			data.setContent(content);
@@ -143,8 +158,9 @@ public class PcapParser {
 	 * 反转数组
 	 * 
 	 * @param arr
+	 * @return
 	 */
-	private static byte[] reverseByteArray(byte[] arr) {
+	private static void reverseByteArray(byte[] arr) {
 		byte temp;
 		int n = arr.length;
 		for (int i = 0; i < n / 2; i++) {
@@ -152,6 +168,5 @@ public class PcapParser {
 			arr[i] = arr[n - 1 - i];
 			arr[n - 1 - i] = temp;
 		}
-		return arr;
 	}
 }

@@ -15,7 +15,9 @@ public class PcapData {
 	private int time_ms;// 4B 时间戳（微妙）
 	private int pLength;// 4B 抓包长度
 	private int length;// 4B 实际长度
-	
+	/**
+	 * 明天用IPDataFrame replace----------------------------------------------
+	 */
 	private byte[] content; // 长度：pLength.IP数据帧
 	
 	public int getTime_s() {
