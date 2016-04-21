@@ -5,6 +5,7 @@ import java.util.Arrays;
 public class ContentParser {
 	// private byte[] frameHead = new byte[14];
 	// public ContentParser
+
 	public static byte[] getIpPackage(byte[] content) {
 		byte[] ipPackage = Arrays.copyOfRange(content, 14, content.length);
 		return ipPackage;
@@ -51,7 +52,7 @@ public class ContentParser {
 			sb.deleteCharAt(sb.length() - 1);
 			SouAddrAndDesAddr[1] = sb.toString();
 		}
-		return null;
+		return SouAddrAndDesAddr;
 	}
 
 	private static boolean isIpv4(byte[] content) {
@@ -62,6 +63,30 @@ public class ContentParser {
 		if (Integer.toHexString(version).equals("0080"))
 			return true;
 		return false;
+	}
+
+	private static int getIPHeaderLength(byte[] content) {
+		byte[] ipPackage = getIpPackage(content);
+		int length;
+		// ipv4
+		if (isIpv4(content)){
+			length = (ByteArrayUtil.extractInteger(ipPackage, 0, 1) & 0xf) * 4;
+		}else{
+			//ipv6 with no "Next Header"
+			length = 40;//ipv6暂时不处理
+		}
+		return length;
+	}
+	public static byte[] getTcpPackage(byte[] content) {
+		byte[] ipPackage = getIpPackage(content);
+		return Arrays.copyOfRange(ipPackage, getIPHeaderLength(content), ipPackage.length);
+	}
+	public static int[] getSouAndDesPort(byte[] content){
+		byte[] tcpPackage = getTcpPackage(content);
+		int[] ports = new int[2];
+		ports[0] = ByteArrayUtil.extractInteger(tcpPackage, 0, 2);
+		ports[1] = ByteArrayUtil.extractInteger(tcpPackage, 2, 2);
+		return ports;
 	}
 	/*
 	 * for(int i=0;i<4;i++){ sbr.append((int)(content[b]&0xff));

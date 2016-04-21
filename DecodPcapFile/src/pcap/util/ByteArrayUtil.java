@@ -21,8 +21,8 @@ public class ByteArrayUtil {
 		}
 		return value;
 	}
-	
-	public static String byteArrayToString(byte[] bs){
+
+	public static String byteArrayToString(byte[] bs) {
 		String string = new String(bs);
 		return string;
 	}
@@ -41,5 +41,29 @@ public class ByteArrayUtil {
 			arr[i] = arr[n - 1 - i];
 			arr[n - 1 - i] = temp;
 		}
+	}
+
+	/**
+	 * Extract an integer from a byte array.
+	 *
+	 * @param bytes
+	 *            an array.
+	 * @param pos
+	 *            the starting position where the integer is stored.
+	 * @param cnt
+	 *            the number of bytes which contain the integer.
+	 * @return the integer, or <b>0</b> if the index/length to use would cause
+	 *         an ArrayOutOfBoundsException
+	 */
+	public static int extractInteger(byte[] bytes, int pos, int cnt) {
+		// commented out because it seems like it might mask a fundamental
+		// problem, if the caller is referencing positions out of bounds and
+		// silently getting back '0'.
+		// if((pos + cnt) > bytes.length) return 0;
+		int value = 0;
+		for (int i = 0; i < cnt; i++)
+			value |= ((bytes[pos + cnt - i - 1] & 0xff) << 8 * i);
+
+		return value;
 	}
 }
