@@ -1,4 +1,4 @@
-package pcap.util;
+package pcap.util.arthur;
 
 import java.io.FileInputStream;
 import java.io.IOException;

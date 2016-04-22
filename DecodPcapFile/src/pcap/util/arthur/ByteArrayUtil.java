@@ -1,4 +1,4 @@
-package pcap.util;
+package pcap.util.arthur;
 
 public class ByteArrayUtil {
 
