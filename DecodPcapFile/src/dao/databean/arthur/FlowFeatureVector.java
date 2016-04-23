@@ -1,6 +1,8 @@
 package dao.databean.arthur;
 
 public class FlowFeatureVector {
+	private ThreeTuple _3tuple; // can be used as id
+
 	private int size_packet;// number of packets transferred in unidirection
 	private int size_bytes; // volume of bytes transferred in unidirection
 
@@ -9,8 +11,8 @@ public class FlowFeatureVector {
 	private float mean_size; // mean of packet size
 	private float stdDev_size; // Std Dev. of packet size
 
-	private int min_time; // min of arriving time
-	private int max_time; // max of arriving time
+	private long min_time; // min of arriving time
+	private long max_time; // max of arriving time
 	private float mean_time; // mean of arriving time
 	private float stdDev_time; // Std Dev. of arriving time
 
@@ -26,6 +28,18 @@ public class FlowFeatureVector {
 		this.max_time = max_time;
 		this.mean_time = mean_time;
 		this.stdDev_time = stdDev_time;
+	}
+	
+	public FlowFeatureVector(){
+		
+	}
+
+	public ThreeTuple get_3tuple() {
+		return _3tuple;
+	}
+
+	public void set_3tuple(ThreeTuple _3tuple) {
+		this._3tuple = _3tuple;
 	}
 
 	public int getSize_packet() {
@@ -76,20 +90,20 @@ public class FlowFeatureVector {
 		this.stdDev_size = stdDev_size;
 	}
 
-	public int getMin_time() {
+	public long getMin_time() {
 		return min_time;
 	}
 
-	public void setMin_time(int min_time) {
-		this.min_time = min_time;
+	public void setMin_time(Long tim_Packs) {
+		this.min_time = tim_Packs;
 	}
 
-	public int getMax_time() {
+	public long getMax_time() {
 		return max_time;
 	}
 
-	public void setMax_time(int max_time) {
-		this.max_time = max_time;
+	public void setMax_time(Long tim_Packs) {
+		this.max_time = tim_Packs;
 	}
 
 	public float getMean_time() {
@@ -110,10 +124,10 @@ public class FlowFeatureVector {
 
 	@Override
 	public String toString() {
-		return "FlowFeatureVector [size_packet=" + size_packet + ", size_bytes=" + size_bytes + ", min_size=" + min_size
-				+ ", max_size=" + max_size + ", mean_size=" + mean_size + ", stdDev_size=" + stdDev_size + ", min_time="
-				+ min_time + ", max_time=" + max_time + ", mean_time=" + mean_time + ", stdDev_time=" + stdDev_time
-				+ "]";
+		return "FlowFeatureVector [_3tuple=" + _3tuple + ", size_packet=" + size_packet + ", size_bytes=" + size_bytes
+				+ ", min_size=" + min_size + ", max_size=" + max_size + ", mean_size=" + mean_size + ", stdDev_size="
+				+ stdDev_size + ", min_time=" + min_time + ", max_time=" + max_time + ", mean_time=" + mean_time
+				+ ", stdDev_time=" + stdDev_time + "]";
 	}
 
 }
