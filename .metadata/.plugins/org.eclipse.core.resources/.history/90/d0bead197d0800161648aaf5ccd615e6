@@ -1,0 +1,10 @@
+package dao.databean.arthur;
+
+public class IPPackets {
+	//ip报文的内容很多都是用不到的
+	//这里是基于统计学的，所以记录相关信息就好
+	private long id;
+	private long arriveTime;
+	private int Size;
+	private FiveTuple _5tuple;
+}

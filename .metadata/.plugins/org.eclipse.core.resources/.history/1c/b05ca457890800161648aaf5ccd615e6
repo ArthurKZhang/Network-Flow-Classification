@@ -1,0 +1,51 @@
+package data.alg.arthur;
+
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+
+import dao.databean.arthur.IPPacket;
+import dao.databean.arthur.NetworkFlow;
+
+public class DataTransAlgorithm {
+	/**
+	 * 
+	 * @return
+	 */
+	// 对每个包，得到五元组的hashcode，然后把相同hashcode的包放到一个流里面。这个hashcode就是这个map的key
+	public static Map<Integer, NetworkFlow> packets2NetworkFlow(List<IPPacket> packets) {
+		// each key(Integer) defines a class(network flow) of packets.
+		Map<Integer, NetworkFlow> map = new HashMap<Integer, NetworkFlow>();
+		// map.put(key, value);
+		for (IPPacket p : packets) {
+			int hashcode = p.get_5tuple().hashCode();
+			// map.put(key, value)
+		}
+		return null;
+	}
+
+	public static List<NetworkFlow> packets2NetworkFlowl(List<IPPacket> packets) {
+		// each key(Integer) defines a class(network flow) of packets.
+		List<NetworkFlow> flowList = new LinkedList<NetworkFlow>();
+		// map.put(key, value);
+		for (IPPacket p : packets) {
+			int hashcode = p.get_5tuple().hashCode();
+
+		}
+		return null;
+	}
+
+	private static NetworkFlow getNetworkFlowBy5THsah(int hashcode, List<NetworkFlow> flowList) {
+		if (flowList.size() == 0) {
+			return null;
+		}
+		for (NetworkFlow flow : flowList) {
+			if (flow.get_5tuple().hashCode() == hashcode) {
+				return flow;
+			}
+		}
+
+		return null;
+	}
+}

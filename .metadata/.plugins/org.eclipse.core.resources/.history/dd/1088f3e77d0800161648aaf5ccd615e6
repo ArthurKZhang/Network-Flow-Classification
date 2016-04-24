@@ -1,0 +1,17 @@
+package dao.databean.arthur;
+
+public class NetworkFlow {
+	private FiveTuple _5tuple;	// can be used as ID
+	private int size_packet;	//number of packets transferred in unidirection
+	private int size_bytes;	//volume of bytes transferred in unidirection
+	
+	private int min_size;	//min of packet size
+	private int max_size;	//max of packet size
+	private float mean_size;	//mean of packet size
+	private float stdDev_size;	//Std Dev. of packet size
+	
+	private int min_time;	//min of arriving time
+	private int max_time;	//max of arriving time
+	private float mean_time;	//mean of arriving time
+	private float stdDev_time;	//Std Dev. of arriving time
+}

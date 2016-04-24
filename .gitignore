@@ -45,3 +45,8 @@ $RECYCLE.BIN/
 Network Trash Folder
 Temporary Items
 .apdisk
+*.gen
+*.zip
+*.log
+.metadata/.mylyn/.taskListIndex/segments_1
+dfghjkl/src/net/sourceforge/jpcap/tutorial/example7/makefile

@@ -1,0 +1,10 @@
+package dao.databean.arthur;
+
+import java.util.LinkedList;
+import java.util.List;
+
+public class BoF {
+	private ThreeTuple _3tuple;	//can be used as id.
+	private  List<FlowFeatureVector> flowFeaVectorList = new LinkedList<FlowFeatureVector>();
+	
+}
