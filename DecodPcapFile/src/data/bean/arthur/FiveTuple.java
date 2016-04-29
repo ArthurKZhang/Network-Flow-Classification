@@ -1,4 +1,4 @@
-package dao.databean.arthur;
+package data.bean.arthur;
 
 public class FiveTuple {
 	private String souAddress;

@@ -1,4 +1,4 @@
-package dao.databean.arthur;
+package data.bean.arthur;
 
 public class IPPacket {
 	// ip报文的内容很多都是用不到的

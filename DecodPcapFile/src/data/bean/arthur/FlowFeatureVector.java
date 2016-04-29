@@ -1,4 +1,4 @@
-package dao.databean.arthur;
+package data.bean.arthur;
 
 public class FlowFeatureVector {
 	private ThreeTuple _3tuple; // can be used as id

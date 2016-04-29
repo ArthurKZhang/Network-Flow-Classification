@@ -1,4 +1,4 @@
-package dao.databean.arthur;
+package data.bean.arthur;
 
 public class ThreeTuple {
 	private String desAddress;

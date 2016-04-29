@@ -5,12 +5,12 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import dao.databean.arthur.BoF;
-import dao.databean.arthur.FiveTuple;
-import dao.databean.arthur.FlowFeatureVector;
-import dao.databean.arthur.IPPacket;
-import dao.databean.arthur.NetworkFlow;
-import dao.databean.arthur.ThreeTuple;
+import data.bean.arthur.BoF;
+import data.bean.arthur.FiveTuple;
+import data.bean.arthur.FlowFeatureVector;
+import data.bean.arthur.IPPacket;
+import data.bean.arthur.NetworkFlow;
+import data.bean.arthur.ThreeTuple;
 
 public class DataTransAlgorithm {
 

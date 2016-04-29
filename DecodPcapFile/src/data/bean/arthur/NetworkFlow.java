@@ -1,4 +1,4 @@
-package dao.databean.arthur;
+package data.bean.arthur;
 
 import java.util.LinkedList;
 import java.util.List;
