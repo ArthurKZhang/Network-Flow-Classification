@@ -1,5 +1,9 @@
 package pcap.util.arthur;
 
+import java.nio.ByteBuffer;
+import java.nio.CharBuffer;
+import java.nio.charset.Charset;
+
 public class ByteArrayUtil {
 
 	public static int byteArrayToInt(byte[] b) {
@@ -25,6 +29,17 @@ public class ByteArrayUtil {
 	public static String byteArrayToString(byte[] bs) {
 		String string = new String(bs);
 		return string;
+	}
+	
+	public static char[] byteArrayTochar(byte[] b) {
+		Charset cs = Charset.forName("UTF-8");
+		ByteBuffer bb = ByteBuffer.allocate(b.length);
+		bb.put(b);
+		bb.flip();
+		CharBuffer cb = cs.decode(bb);
+
+		return cb.array();
+
 	}
 
 	/**

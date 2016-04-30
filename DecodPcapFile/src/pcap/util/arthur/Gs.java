@@ -11,6 +11,7 @@ import java.util.Arrays;
 import pcap.databean.arthur.Pcap;
 
 public class Gs {
+	/*
 	public static void main(String[] args) {
 		try {
 			InputStream is = new FileInputStream("D:\\00DATA\\BS\\267num.pcap");
@@ -19,11 +20,9 @@ public class Gs {
 			is.close();
 			byte[] t = pcap.getData().get(0).getContent();
 			System.out.println(pcap.getData().size());
-			/**
-			 * data stores IP package
-			 */
+			 // data stores IP package
 			byte[] data = Arrays.copyOfRange(t, 14, t.length);
-			char[] chars = byteArrayTochar(data);
+			char[] chars = ByteArrayUtil.byteArrayTochar(data);
 			for(int i = 0;i<chars.length;i++)
 			System.out.println(chars[i]);
 		} catch (IOException e) {
@@ -31,17 +30,8 @@ public class Gs {
 			e.printStackTrace();
 		}
 	}
-
-	private static char[] byteArrayTochar(byte[] b) {
-		Charset cs = Charset.forName("UTF-8");
-		ByteBuffer bb = ByteBuffer.allocate(b.length);
-		bb.put(b);
-		bb.flip();
-		CharBuffer cb = cs.decode(bb);
-
-		return cb.array();
-
-	}
+*/
+	
 
 	
 

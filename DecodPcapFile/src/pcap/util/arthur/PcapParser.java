@@ -14,6 +14,8 @@ public class PcapParser {
 	 * @author Zh_’≈”Ó
 	 * @author En_Arhur Parser .pcap file
 	 */
+//	public static byte[] time1;
+//	public static byte[] time2;
 	public static Pcap unpack(InputStream is) throws IOException {
 		byte[] buffer_4 = new byte[4];
 		byte[] buffer_2 = new byte[2];
@@ -93,7 +95,7 @@ public class PcapParser {
 			}
 			ByteArrayUtil.reverseByteArray(buffer_4);
 			data.getDataheader().setTime_s(ByteArrayUtil.byteArrayToInt(buffer_4));
-
+//			time1 = buffer_4;
 			m = is.read(buffer_4);
 			if (m < 4) {
 				System.err.println("pcap package header time_ms <4B");
@@ -101,6 +103,7 @@ public class PcapParser {
 			}
 			ByteArrayUtil.reverseByteArray(buffer_4);
 			data.getDataheader().setTime_ms(ByteArrayUtil.byteArrayToInt(buffer_4));
+//			time2 = buffer_4;
 			
 			m = is.read(buffer_4);
 			if (m < 4) {

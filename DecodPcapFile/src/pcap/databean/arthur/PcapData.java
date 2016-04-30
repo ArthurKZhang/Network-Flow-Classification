@@ -12,7 +12,7 @@ public class PcapData {
 	 *  pcap package header zone--16B
 	 */
 	
-	private PcapDataHeader dataheader;
+	private PcapDataHeader dataheader = new PcapDataHeader();
 	/**
 	 * Ã÷ÌìÓÃIPDataFrame replace----------------------------------------------
 	 */
