@@ -12,5 +12,7 @@ public class DataCreationAlgorithm {
 	public static IPPacket pcap2IPPacket(){
 		return null;
 	}
-	
+	public static NetworkFlow IPPacket2NetorkFlow(IPPacket p){
+		
+	}
 }
