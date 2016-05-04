@@ -1,4 +1,0 @@
-package dao.databean.arthur;
-
-public class NetworkFlow {
-}

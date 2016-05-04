@@ -1,0 +1,48 @@
+package test;
+
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+
+import pcap.databean.arthur.Pcap;
+import pcap.util.arthur.ContentParser;
+import pcap.util.arthur.PcapParser;
+
+/**
+ * for don't know certain content of .pcap file, we can't use JUnit test
+ * framework. printing out contents is the only choice we can make.
+ * 
+ * @author Arthur
+ */
+public class PcapFileDecodeTest {
+	public static void main(String[] args) {
+		try {
+			InputStream is = new FileInputStream("D:\\00DATA\\BS\\267num.pcap");
+			Pcap pcap;
+			pcap = PcapParser.unpack(is);
+			is.close();
+			// the number of packets caught in file.
+			int contentSize = pcap.getData().size();
+			print("file contains " + contentSize + "packages");
+
+			// the first package had caught
+			byte[] content = pcap.getData().get(0).getContent();
+			// data stores IP package
+			byte[] ipPacket = ContentParser.getIpPackage(content);
+			String[] AddreS = ContentParser.getSouAddrAndDesAddr(ipPacket);
+			print("Source Address: " + AddreS[0] + " Desti Address " + AddreS[1]);
+			int[] ports = ContentParser.getSouAndDesPort(content);
+			print("Source Port: "+ports[0] + " Desti Port: " + ports[1]);
+
+			//the last packet had caught----recheck
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	private static void print(String s) {
+		System.out.println(s);
+	}
+}

@@ -1,8 +1,0 @@
-package dao.databean.arthur;
-
-public class IPPackets {
-	private long id;
-	private long arriveTime;
-	private int Size;
-	private FiveTuple _5tuple;
-}

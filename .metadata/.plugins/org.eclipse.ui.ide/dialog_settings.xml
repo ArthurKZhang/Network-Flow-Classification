@@ -5,6 +5,7 @@
 		<item value="false" key="WizardProjectsImportPage.STORE_COPY_PROJECT_ID"/>
 		<item value="false" key="WizardProjectsImportPage.STORE_ARCHIVE_SELECTED"/>
 		<list key="WizardProjectsImportPage.STORE_DIRECTORIES">
+			<item value="D:\00CODE\BS\Code\dfghjkl"/>
 			<item value="D:\00CODE\BS\Code\testJpcap\CatchPackage"/>
 			<item value="D:\00CODE\BS\Code\Git\DecodPcapFile"/>
 		</list>

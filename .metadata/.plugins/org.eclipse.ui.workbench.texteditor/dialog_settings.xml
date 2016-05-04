@@ -2,13 +2,23 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
+		<item value="package header time_s" key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
+			<item value="package header time_s"/>
+			<item value="byteArrayToShort"/>
+			<item value="BteArrayUtil.byteArrayToInt"/>
+			<item value="byteArrayToInt"/>
+			<item value="reverseByteArray"/>
 		</list>
 		<list key="replacehistory">
+			<item value="ByteArrayUtil.byteArrayToShort"/>
+			<item value="ByteArrayUtil.byteArrayToInt"/>
+			<item value="BteArrayUtil.byteArrayToInt"/>
+			<item value="ByteArrayUtil.reverseByteArray"/>
 		</list>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">

@@ -1,9 +1,0 @@
-package dao.databean.arthur;
-
-public class FiveTuple {
-	private String souAddress;
-	private String desAddress;
-	private int souPort;
-	private int desPort;
-	private byte protocol;// tcp--6
-}

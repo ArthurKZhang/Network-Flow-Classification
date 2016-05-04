@@ -1,0 +1,5 @@
+package pcap.databean.arthur;
+
+public class PcapDataHeader {
+
+}
