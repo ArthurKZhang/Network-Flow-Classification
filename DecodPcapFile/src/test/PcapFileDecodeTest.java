@@ -7,6 +7,8 @@ import java.nio.ByteBuffer;
 import java.util.Calendar;
 import java.util.Date;
 
+import data.bean.arthur.FiveTuple;
+import data.bean.arthur.IPPacket;
 import pcap.databean.arthur.Pcap;
 import pcap.util.arthur.ContentParser;
 import pcap.util.arthur.PcapParser;
@@ -35,19 +37,26 @@ public class PcapFileDecodeTest {
 			print("Source Address: " + AddreS[0] + " Desti Address " + AddreS[1]);
 			int[] ports = ContentParser.getSouAndDesPort(content1);
 			print("Source Port: " + ports[0] + " Desti Port: " + ports[1]);
+			byte protocol = Byte.valueOf(Integer.toString(ContentParser.getProtocol(ipPacket1)));
 			print("Protocol: " + ContentParser.getProtocol(ipPacket1));
 			print("IP Packet Size: " + ContentParser.getIPPacketSize(ipPacket1));
+			
+			FiveTuple fiveTuple = new FiveTuple(AddreS[0], AddreS[1], ports[0], ports[1], protocol);
+			IPPacket ipp = new IPPacket();
+			ipp.set_5tuple(fiveTuple);
+			ipp.setArriveTime(pcap.getData().get(0).getDataheader().getTime_s());
+			ipp.setSize(ContentParser.getIPPacketSize(ipPacket1));
 
 			// the last packet had caught----recheck
-			byte[] content2 = pcap.getData().get(contentSize - 1).getContent();
-			byte[] ipPacket2 = ContentParser.getIpPackage(content2);
-			AddreS = ContentParser.getSouAddrAndDesAddr(ipPacket2);
-			print("Source Address: " + AddreS[0] + " Desti Address " + AddreS[1]);
-			ports = ContentParser.getSouAndDesPort(content2);
-			print("Source Port: " + ports[0] + " Desti Port: " + ports[1]);
-			print("Protocol: " + ContentParser.getProtocol(ipPacket2));
-			print("IP Packet Size: " + ContentParser.getIPPacketSize(ipPacket2));
-			
+//			byte[] content2 = pcap.getData().get(contentSize - 1).getContent();
+//			byte[] ipPacket2 = ContentParser.getIpPackage(content2);
+//			AddreS = ContentParser.getSouAddrAndDesAddr(ipPacket2);
+//			print("Source Address: " + AddreS[0] + " Desti Address " + AddreS[1]);
+//			ports = ContentParser.getSouAndDesPort(content2);
+//			print("Source Port: " + ports[0] + " Desti Port: " + ports[1]);
+//			print("Protocol: " + ContentParser.getProtocol(ipPacket2));
+//			print("IP Packet Size: " + ContentParser.getIPPacketSize(ipPacket2));
+//			
 			
 			print("TEST DONE");
 		} catch (IOException e) {

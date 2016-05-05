@@ -4,7 +4,6 @@
 <fullyQualifiedTypeName name="java.nio.CharBuffer"/>
 <fullyQualifiedTypeName name="java.lang.StringBuffer"/>
 <fullyQualifiedTypeName name="java.awt.HeadlessException"/>
-<fullyQualifiedTypeName name="java.lang.Byte"/>
 <fullyQualifiedTypeName name="pcap.util.ContentParser"/>
 <fullyQualifiedTypeName name="pcap.util.ByteArrayUtil"/>
 <fullyQualifiedTypeName name="java.awt.List"/>
@@ -29,16 +28,18 @@
 <fullyQualifiedTypeName name="java.time.format.DateTimeFormatter"/>
 <fullyQualifiedTypeName name="java.text.DateFormat"/>
 <fullyQualifiedTypeName name="java.util.Date"/>
-<fullyQualifiedTypeName name="java.lang.Integer"/>
 <fullyQualifiedTypeName name="pcap.databean.arthur.PcapDataHeader"/>
 <fullyQualifiedTypeName name="pcap.util.arthur.ByteArrayUtil"/>
 <fullyQualifiedTypeName name="java.util.Arrays"/>
 <fullyQualifiedTypeName name="java.lang.System"/>
-<fullyQualifiedTypeName name="pcap.util.arthur.ContentParser"/>
 <fullyQualifiedTypeName name="java.lang.Long"/>
 <fullyQualifiedTypeName name="java.nio.ByteBuffer"/>
 <fullyQualifiedTypeName name="pcap.util.arthur.PcapParser"/>
 <fullyQualifiedTypeName name="java.util.Calendar"/>
 <fullyQualifiedTypeName name="data.bean.arthur.NetworkFlow"/>
+<fullyQualifiedTypeName name="data.bean.arthur.FiveTuple"/>
+<fullyQualifiedTypeName name="java.lang.Byte"/>
+<fullyQualifiedTypeName name="java.lang.Integer"/>
 <fullyQualifiedTypeName name="data.bean.arthur.IPPacket"/>
+<fullyQualifiedTypeName name="pcap.util.arthur.ContentParser"/>
 </qualifiedTypeNameHistroy>
