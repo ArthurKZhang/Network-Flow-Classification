@@ -3,19 +3,10 @@ package arthur.bean.data;
 public class IPPacket {
 	// ip报文的内容很多都是用不到的
 	// 这里是基于统计学的，所以记录相关信息就好
-	private long id;
 	private long time_s;
 	private long time_ms;
 	private int Size;
 	private FiveTuple _5tuple;
-
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
-	}
 
 	public long getTime_s() {
 		return time_s;

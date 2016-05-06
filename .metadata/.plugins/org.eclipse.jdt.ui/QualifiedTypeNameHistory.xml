@@ -31,7 +31,6 @@
 <fullyQualifiedTypeName name="pcap.databean.arthur.PcapDataHeader"/>
 <fullyQualifiedTypeName name="pcap.util.arthur.ByteArrayUtil"/>
 <fullyQualifiedTypeName name="java.util.Arrays"/>
-<fullyQualifiedTypeName name="java.lang.System"/>
 <fullyQualifiedTypeName name="java.lang.Long"/>
 <fullyQualifiedTypeName name="java.nio.ByteBuffer"/>
 <fullyQualifiedTypeName name="pcap.util.arthur.PcapParser"/>
@@ -45,7 +44,19 @@
 <fullyQualifiedTypeName name="arthur.bean.pcapfiledata.Pcap"/>
 <fullyQualifiedTypeName name="arthur.bean.pcapfiledata.PcapHeader"/>
 <fullyQualifiedTypeName name="arthur.bean.pcapfiledata.PcapData"/>
-<fullyQualifiedTypeName name="arthur.bean.data.IPPacket"/>
 <fullyQualifiedTypeName name="arthur.service.file2bean.ByteArrayUtil"/>
 <fullyQualifiedTypeName name="arthur.service.file2bean.ContentParser"/>
+<fullyQualifiedTypeName name="arthur.bean.data.IPPacket"/>
+<fullyQualifiedTypeName name="com.mongodb.MongoClient"/>
+<fullyQualifiedTypeName name="com.mongodb.client.MongoCollection"/>
+<fullyQualifiedTypeName name="arthur.dao.Mongo.ConfigIPPacket"/>
+<fullyQualifiedTypeName name="com.mongodb.client.MongoDatabase"/>
+<fullyQualifiedTypeName name="arthur.dao.Mongo.DBHelperIPPacket"/>
+<fullyQualifiedTypeName name="arthur.service.datatrans.DataTransAlgorithm"/>
+<fullyQualifiedTypeName name="arthur.dao.Mongo.ConfigNetWOrkFlow"/>
+<fullyQualifiedTypeName name="org.bson.Document"/>
+<fullyQualifiedTypeName name="java.util.Set"/>
+<fullyQualifiedTypeName name="arthur.bean.data.NetworkFlow"/>
+<fullyQualifiedTypeName name="arthur.dao.Mongo.DBHelperNetWorkFlow"/>
+<fullyQualifiedTypeName name="java.lang.System"/>
 </qualifiedTypeNameHistroy>

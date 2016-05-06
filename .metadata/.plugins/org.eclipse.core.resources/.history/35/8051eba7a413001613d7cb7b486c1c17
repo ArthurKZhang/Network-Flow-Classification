@@ -1,0 +1,30 @@
+package arthur.dao.Mongo;
+
+import org.bson.Document;
+
+import com.mongodb.MongoClient;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
+
+import arthur.bean.data.IPPacket;
+
+public class DBHelperIPPacket {
+	public static boolean save(IPPacket ipp) {
+		try {
+			// 连接到 mongodb 服务
+			MongoClient mongoClient = new MongoClient("localhost", 27017);
+
+			// 连接到数据库
+			MongoDatabase mongoDatabase = mongoClient.getDatabase("BS");
+			System.out.println("Connect to database successfully");
+			
+			mongoDatabase.createCollection("IPPacket");
+			MongoCollection<Document> collection = mongoDatabase.getCollection("IPPacket");
+//			Documents
+			return true;
+		} catch (Exception e) {
+			System.err.println(e.getClass().getName() + ": " + e.getMessage());
+			return false;
+		}
+	}
+}

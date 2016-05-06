@@ -1,0 +1,25 @@
+package arthur.service.datatrans;
+
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import arthur.bean.data.IPPacket;
+import arthur.bean.data.NetworkFlow;
+import arthur.dao.Mongo.DBHelperNetWorkFlow;
+
+public class TransImp {
+	public static boolean ipPacket2NetFlow(List<IPPacket> packets) {
+		Map<Integer, NetworkFlow> map = DataTransAlgorithm.packets2NetworkFlow(packets);
+		Set<Integer> keys = map.keySet();
+		DBHelperNetWorkFlow.createCollection();
+		for(Integer i : keys){
+			NetworkFlow nf = map.get(i);
+			
+			if(!DBHelperNetWorkFlow.save(nf)){
+				System.err.println("save NetWorkFlow ERROR:flowDetails--\n"+nf.toString());
+			}
+		}
+		return false;
+	}
+}
