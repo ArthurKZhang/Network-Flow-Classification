@@ -42,4 +42,10 @@
 <fullyQualifiedTypeName name="java.lang.Integer"/>
 <fullyQualifiedTypeName name="data.bean.arthur.IPPacket"/>
 <fullyQualifiedTypeName name="pcap.util.arthur.ContentParser"/>
+<fullyQualifiedTypeName name="arthur.bean.pcapfiledata.Pcap"/>
+<fullyQualifiedTypeName name="arthur.bean.pcapfiledata.PcapHeader"/>
+<fullyQualifiedTypeName name="arthur.bean.pcapfiledata.PcapData"/>
+<fullyQualifiedTypeName name="arthur.bean.data.IPPacket"/>
+<fullyQualifiedTypeName name="arthur.service.file2bean.ByteArrayUtil"/>
+<fullyQualifiedTypeName name="arthur.service.file2bean.ContentParser"/>
 </qualifiedTypeNameHistroy>
