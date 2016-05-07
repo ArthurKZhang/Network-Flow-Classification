@@ -9,7 +9,7 @@ import com.mongodb.client.MongoDatabase;
 import arthur.bean.data.IPPacket;
 import arthur.bean.data.NetworkFlow;
 
-public class DBHelperNetWorkFlow implements ConfigNetWOrkFlow {
+public class DBHelperNetWorkFlow implements ConfigNetWorkFlow {
 //	public static 
 	
 	public static void createCollection() {

@@ -24,7 +24,7 @@ public class PcapFileDecodeTest {
 		try {
 			InputStream is = new FileInputStream("D:\\00DATA\\BS\\267num.pcap");
 			Pcap pcap;
-			pcap = PcapParser.unpack(is);
+			pcap = null;//PcapParser.unpack(is);
 			is.close();
 			// the number of packets caught in file.
 			int contentSize = pcap.getData().size();

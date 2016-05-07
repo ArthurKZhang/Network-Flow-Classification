@@ -1,0 +1,43 @@
+package arthur.dao.Mongo;
+
+import org.bson.Document;
+
+import com.mongodb.MongoClient;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
+
+import arthur.bean.data.FlowFeatureVector;
+import arthur.bean.data.IPPacket;
+
+public class DBHelperFlowFeatureVector implements ConfigFlowFeatureVector {
+//	public static 
+	
+	public static void createCollection() {
+		MongoClient mongoClient = new MongoClient(HOST, PORT);
+		MongoDatabase db = mongoClient.getDatabase(DB_NAME);
+		try {
+			db.createCollection(COLLECTION_NAME);
+			System.out.println("Collection--" + COLLECTION_NAME + "--created");
+		} catch (Exception e) {
+			System.err.println(e.getClass().getName() + ": " + e.getMessage());
+		} finally {
+			mongoClient.close();
+		}
+	}
+
+	public static boolean save(FlowFeatureVector fv) {
+		MongoClient mongoClient = new MongoClient(HOST, PORT);
+		MongoDatabase mongoDatabase = mongoClient.getDatabase(DB_NAME);
+		try {
+			MongoCollection<Document> collection = mongoDatabase.getCollection(COLLECTION_NAME);
+			Document fVector = new Document(
+			collection.insertOne(fVector);
+			return true;
+		} catch (Exception e) {
+			System.err.println(e.getClass().getName() + ": " + e.getMessage());
+			return false;
+		}finally {
+			mongoClient.close();
+		}
+	}
+}
