@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename type &apos;arthur.service.classification.NN&apos; to &apos;DistanceTools&apos;&#x0D;&#x0A;- Original project: &apos;DecodPcapFile&apos;&#x0D;&#x0A;- Original element: &apos;arthur.service.classification.NN&apos;&#x0D;&#x0A;- Renamed element: &apos;arthur.service.classification.DistanceTools&apos;&#x0D;&#x0A;- Update references to refactored element&#x0D;&#x0A;- Update textual occurrences in comments and strings" description="Rename type &apos;NN&apos;" flags="589830" id="org.eclipse.jdt.ui.rename.type" input="/src&lt;arthur.service.classification{NN.java[NN" matchStrategy="1" name="DistanceTools" qualified="false" references="true" similarDeclarations="false" stamp="1462893000824" textual="false" version="1.0"/>
+</session>

@@ -1,9 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-<fullyQualifiedTypeName name="java.nio.charset.Charset"/>
-<fullyQualifiedTypeName name="java.nio.CharBuffer"/>
-<fullyQualifiedTypeName name="java.lang.StringBuffer"/>
-<fullyQualifiedTypeName name="java.awt.HeadlessException"/>
 <fullyQualifiedTypeName name="pcap.util.ContentParser"/>
 <fullyQualifiedTypeName name="pcap.util.ByteArrayUtil"/>
 <fullyQualifiedTypeName name="java.awt.List"/>
@@ -38,7 +34,6 @@
 <fullyQualifiedTypeName name="data.bean.arthur.NetworkFlow"/>
 <fullyQualifiedTypeName name="data.bean.arthur.FiveTuple"/>
 <fullyQualifiedTypeName name="java.lang.Byte"/>
-<fullyQualifiedTypeName name="java.lang.Integer"/>
 <fullyQualifiedTypeName name="data.bean.arthur.IPPacket"/>
 <fullyQualifiedTypeName name="pcap.util.arthur.ContentParser"/>
 <fullyQualifiedTypeName name="arthur.bean.pcapfiledata.Pcap"/>
@@ -52,11 +47,17 @@
 <fullyQualifiedTypeName name="arthur.dao.Mongo.ConfigIPPacket"/>
 <fullyQualifiedTypeName name="com.mongodb.client.MongoDatabase"/>
 <fullyQualifiedTypeName name="arthur.dao.Mongo.DBHelperIPPacket"/>
-<fullyQualifiedTypeName name="arthur.service.datatrans.DataTransAlgorithm"/>
 <fullyQualifiedTypeName name="arthur.dao.Mongo.ConfigNetWOrkFlow"/>
 <fullyQualifiedTypeName name="org.bson.Document"/>
 <fullyQualifiedTypeName name="java.util.Set"/>
-<fullyQualifiedTypeName name="arthur.bean.data.NetworkFlow"/>
 <fullyQualifiedTypeName name="arthur.dao.Mongo.DBHelperNetWorkFlow"/>
+<fullyQualifiedTypeName name="arthur.bean.data.NetworkFlow"/>
+<fullyQualifiedTypeName name="arthur.dao.Mongo.ConfigFlowFeatureVector"/>
+<fullyQualifiedTypeName name="arthur.bean.data.FlowFeatureVector"/>
+<fullyQualifiedTypeName name="arthur.dao.Mongo.DBHelperFlowFeatureVector"/>
+<fullyQualifiedTypeName name="arthur.service.datatrans.DataTransAlgorithm"/>
+<fullyQualifiedTypeName name="java.lang.Integer"/>
+<fullyQualifiedTypeName name="arthur.bean.data.BoF"/>
+<fullyQualifiedTypeName name="arthur.dao.Mongo.DBHelperBOF"/>
 <fullyQualifiedTypeName name="java.lang.System"/>
 </qualifiedTypeNameHistroy>
