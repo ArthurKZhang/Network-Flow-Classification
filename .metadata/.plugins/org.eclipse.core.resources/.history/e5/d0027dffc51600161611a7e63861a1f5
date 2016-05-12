@@ -1,0 +1,5 @@
+package arthur.bean.data;
+
+public class TrainingSample {
+
+}

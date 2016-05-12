@@ -1,5 +1,7 @@
 package arthur.bean.data;
 
+import org.bson.Document;
+
 public class IPPacket {
 	// ip报文的内容很多都是用不到的
 	// 这里是基于统计学的，所以记录相关信息就好
@@ -7,6 +9,24 @@ public class IPPacket {
 	private long time_ms;
 	private int Size;
 	private FiveTuple _5tuple;
+	
+	public IPPacket(){}
+	
+	public IPPacket(Document d) {
+		this.Size = d.getInteger("size");
+		this.time_s = d.getLong("time_s");
+		this.time_ms = d.getLong("time_ms");
+		this._5tuple = new FiveTuple(d.getString("sourceAddress"), 
+				d.getString("destinAddress"), 
+				d.getInteger("sourcePort"), 
+				d.getInteger("destinPort"), 
+				d.getInteger("protocol"));
+	}
+	
+	@Override
+	public String toString() {
+		return "IPPacket [time_s=" + time_s + ", time_ms=" + time_ms + ", Size=" + Size + ", _5tuple=" + _5tuple + "]";
+	}
 
 	public long getTime_s() {
 		return time_s;

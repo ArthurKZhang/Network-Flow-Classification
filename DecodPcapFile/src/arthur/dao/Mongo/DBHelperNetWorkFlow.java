@@ -1,13 +1,17 @@
 package arthur.dao.Mongo;
 
 import org.bson.Document;
+import org.bson.codecs.configuration.CodecRegistries;
+import org.bson.codecs.configuration.CodecRegistry;
 
 import com.mongodb.MongoClient;
+import com.mongodb.MongoClientOptions;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 
 import arthur.bean.data.IPPacket;
 import arthur.bean.data.NetworkFlow;
+import arthur.dao.codec.IPPacketCodec;
 
 public class DBHelperNetWorkFlow implements ConfigNetWorkFlow {
 //	public static 
@@ -24,9 +28,20 @@ public class DBHelperNetWorkFlow implements ConfigNetWorkFlow {
 			mongoClient.close();
 		}
 	}
-
-	public static boolean save(NetworkFlow nf) {
+	public static void dropCollection(){
 		MongoClient mongoClient = new MongoClient(HOST, PORT);
+		MongoDatabase db = mongoClient.getDatabase(DB_NAME);
+		db.getCollection(COLLECTION_NAME).drop();
+	}
+	public static boolean save(NetworkFlow nf) {
+		CodecRegistry codecRegistry = 
+                CodecRegistries.fromRegistries(
+                        CodecRegistries.fromCodecs(new IPPacketCodec()),
+                        MongoClient.getDefaultCodecRegistry());
+        MongoClientOptions options = MongoClientOptions.builder()
+                .codecRegistry(codecRegistry).build();
+		// host[:port]
+		MongoClient mongoClient = new MongoClient(HOST+":"+PORT+"", options);//new MongoClient(HOST, PORT);
 		MongoDatabase mongoDatabase = mongoClient.getDatabase(DB_NAME);
 		try {
 			MongoCollection<Document> collection = mongoDatabase.getCollection(COLLECTION_NAME);

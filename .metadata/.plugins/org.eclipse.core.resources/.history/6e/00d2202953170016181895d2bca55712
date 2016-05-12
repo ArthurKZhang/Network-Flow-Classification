@@ -1,0 +1,18 @@
+package arthur.service.classification;
+
+import java.util.List;
+import java.util.Map;
+
+import arthur.bean.data.BoF;
+import arthur.bean.data.FlowFeatureVector;
+
+public class Classification {
+	public static void classifier(Map<String, List<FlowFeatureVector>> trainedMap, BoF testBof) {
+		List<FlowFeatureVector> testVectors = testBof.getFlowFeaVectorList();
+		for(String cla: trainedMap.keySet()){
+			List<FlowFeatureVector> tranList = trainedMap.get(cla);
+			//bof 对这个cla类的距离
+		}
+		//获得最小的距离，输出
+	}
+}

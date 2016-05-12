@@ -1,0 +1,10 @@
+package arthur.service.classification;
+
+import java.util.List;
+
+import arthur.bean.data.BoF;
+import arthur.bean.data.FlowFeatureVector;
+
+public interface Distance {
+	public static double getDistance(List<FlowFeatureVector> tranList, BoF testBof);
+}

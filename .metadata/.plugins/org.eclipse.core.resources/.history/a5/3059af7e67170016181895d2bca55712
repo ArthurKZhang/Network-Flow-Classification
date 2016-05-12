@@ -1,0 +1,51 @@
+package arthur.service.classification;
+
+import java.math.BigDecimal;
+import java.util.List;
+
+import arthur.bean.data.BoF;
+import arthur.bean.data.FlowFeatureVector;
+
+public class MINDis implements Distance {
+
+	@Override
+	public double getDistance(List<FlowFeatureVector> tranList, BoF testBof) {
+		List<FlowFeatureVector> testlist = testBof.getFlowFeaVectorList();
+		double min = Double.MAX_VALUE;
+		for (FlowFeatureVector bv : testlist) {
+			for (FlowFeatureVector tv : tranList) {
+				double[] b = vector2Array(bv);
+				double[] t = vector2Array(tv);
+				double dis = 0;
+				// º∆À„æ‡¿Î
+				for(int i = 0;i<b.length;i++){
+					dis += BigDecimalCalculate.mul(b[i]-t[i], b[i]-t[i]);
+				}
+				dis = Math.sqrt(dis);
+				// ∏¸–¬min
+				if(dis<min){
+					min = dis;
+				}
+			}
+		}
+
+		return min;
+	}
+
+	private double[] vector2Array(FlowFeatureVector v) {
+		double[] a = new double[10];
+		a[0] = v.getSize_packet();
+		a[1] = v.getSize_bytes();
+		
+		a[2] = v.getMin_size();
+		a[3] = v.getMax_size();
+		a[4] = v.getMean_size();
+		a[5] = v.getStdDev_size();
+		
+		a[6] = v.getMin_time();
+		a[7] = v.getMax_time();
+		a[8] = v.getMean_time();
+		a[9] = v.getStdDev_time();
+		return a;
+	}
+}

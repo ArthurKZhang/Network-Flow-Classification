@@ -20,13 +20,15 @@ public class TransImp {
 		int count = 0;
 		for (Integer i : keys) {
 			NetworkFlow nf = map.get(i);
-
+			System.out.println(nf);
+			
 			if (!DBHelperNetWorkFlow.save(nf)) {
 				System.err.println("save NetWorkFlow " + (count + 1) + " ERROR:flowDetails--\n" + nf.toString());
 			} else {
 				count++;
 			}
 		}
+		System.out.println(count);
 		return count;
 	}
 

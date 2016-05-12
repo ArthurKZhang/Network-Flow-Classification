@@ -20,4 +20,4 @@ org.eclipse.jdt.core.compiler.source=1.8
 org.eclipse.jdt.core.compiler.taskCaseSensitive=enabled
 org.eclipse.jdt.core.compiler.taskPriorities=NORMAL,HIGH,NORMAL
 org.eclipse.jdt.core.compiler.taskTags=TODO,FIXME,XXX
-org.eclipse.jdt.core.userLibrary.mongodb=<?xml version\="1.0" encoding\="UTF-8"?>\r\n<userlibrary systemlibrary\="false" version\="2">\r\n\t<archive path\="E\:/12\u73AF\u5883\u642D\u5EFA/mongodb/mongo-java-driver-3.2.2.jar"/>\r\n</userlibrary>\r\n
+org.eclipse.jdt.core.userLibrary.mongodb=<?xml version\="1.0" encoding\="UTF-8"?>\r\n<userlibrary systemlibrary\="false" version\="2">\r\n\t<archive path\="E\:/12\u73AF\u5883\u642D\u5EFA/mongodb/mongo-java-driver-3.2.2.jar" sourceattachment\="E\:/12\u73AF\u5883\u642D\u5EFA/mongodb/mongo-java-driver-3.2.2-sources.jar"/>\r\n</userlibrary>\r\n

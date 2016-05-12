@@ -8,6 +8,11 @@ public class NetworkFlow {
 
 	private List<IPPacket> packetList = new LinkedList<IPPacket>();
 
+	@Override
+	public String toString() {
+		return "NetworkFlow [_5tuple=" + _5tuple + ", packetList=" + packetList + "]";
+	}
+
 	public FiveTuple get_5tuple() {
 		return _5tuple;
 	}

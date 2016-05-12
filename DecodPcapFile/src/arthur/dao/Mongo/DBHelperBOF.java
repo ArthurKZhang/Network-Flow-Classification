@@ -23,7 +23,11 @@ public class DBHelperBOF implements ConfigBOF {
 			mongoClient.close();
 		}
 	}
-
+	public static void dropCollection(){
+		MongoClient mongoClient = new MongoClient(HOST, PORT);
+		MongoDatabase db = mongoClient.getDatabase(DB_NAME);
+		db.getCollection(COLLECTION_NAME).drop();
+	}
 	public static boolean save(BoF bof) {
 		MongoClient mongoClient = new MongoClient(HOST, PORT);
 		MongoDatabase mongoDatabase = mongoClient.getDatabase(DB_NAME);

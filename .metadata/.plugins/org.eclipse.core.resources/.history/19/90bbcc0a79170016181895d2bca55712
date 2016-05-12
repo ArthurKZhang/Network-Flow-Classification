@@ -1,0 +1,85 @@
+package arthur.dao.Mongo;
+
+import java.util.LinkedList;
+import java.util.List;
+
+import org.bson.Document;
+
+import com.mongodb.MongoClient;
+import com.mongodb.client.FindIterable;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoCursor;
+import com.mongodb.client.MongoDatabase;
+
+import arthur.bean.data.IPPacket;
+
+public class DBHelperIPPacket implements ConfigIPPacket {
+//	public static 
+	
+	public static void createCollection() {
+		MongoClient mongoClient = new MongoClient(HOST, PORT);
+		MongoDatabase db = mongoClient.getDatabase(DB_NAME);
+		try {
+			db.createCollection(COLLECTION_NAME);
+			System.out.println("Collection--" + COLLECTION_NAME + "--created");
+		} catch (Exception e) {
+			System.err.println(e.getClass().getName() + ": " + e.getMessage());
+		} finally {
+			mongoClient.close();
+		}
+	}
+	public static void dropCollection(){
+		MongoClient mongoClient = new MongoClient(HOST, PORT);
+		MongoDatabase db = mongoClient.getDatabase(DB_NAME);
+		db.getCollection(COLLECTION_NAME).drop();
+	}
+	public static boolean save(IPPacket ipp) {
+		MongoClient mongoClient = new MongoClient(HOST, PORT);
+		MongoDatabase mongoDatabase = mongoClient.getDatabase(DB_NAME);
+		try {
+			MongoCollection<Document> collection = mongoDatabase.getCollection(COLLECTION_NAME);
+			System.out.println("*****"+ipp.get_5tuple().getDesAddress());
+			Document ipPacket = new Document("time_s", ipp.getTime_s())
+					.append("time_ms", ipp.getTime_ms())
+					.append("size", ipp.getSize())
+					.append("sourceAddress", ipp.get_5tuple().getSouAddress())
+					.append("destinAddress", ipp.get_5tuple().getDesAddress())
+					.append("sourcePort", ipp.get_5tuple().getSouPort())
+					.append("destinAddress", ipp.get_5tuple().getDesPort())
+					.append("protocol", ipp.get_5tuple().getProtocol());
+			collection.insertOne(ipPacket);
+			return true;
+		} catch (Exception e) {
+			System.err.println(e.getClass().getName() + ": " + e.getMessage());
+			return false;
+		}finally {
+			mongoClient.close();
+		}
+	}
+	
+	public static List<IPPacket> queryAll(){
+		MongoClient mongoClient = new MongoClient(HOST, PORT);
+		MongoDatabase db = mongoClient.getDatabase(DB_NAME);
+		FindIterable<Document> findIterable = db.getCollection(COLLECTION_NAME).find();
+		MongoCursor<Document> mongoCursor = findIterable.iterator();
+		List<IPPacket> ps = new LinkedList<>();
+		while(mongoCursor.hasNext()){  
+            Document d = mongoCursor.next();
+            IPPacket p = new IPPacket();
+            System.out.println(d.getString("sourceAddress"));
+            System.out.println(d.getString("destinAddress"));
+            p.set_5tuple(d.getString("sourceAddress"), 
+            		d.getString("destinAddress"), 
+            		d.getInteger("sourcePort"), d.getInteger("destinAddress"), 
+            		d.getInteger("protocol"));
+            p.setSize(d.getInteger("size"));
+            p.setTime_ms(d.getLong("time_ms"));
+            p.setTime_s(d.getLong("time_s"));
+            ps.add(p);
+         } 
+		return ps;
+	}
+	
+	
+	
+}

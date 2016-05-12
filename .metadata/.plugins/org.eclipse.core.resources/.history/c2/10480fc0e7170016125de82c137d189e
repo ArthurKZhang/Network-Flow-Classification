@@ -1,0 +1,7 @@
+package arthur.dao.codec;
+
+import org.bson.codecs.Codec;
+
+public class IPPacketCodec implements Codec<T> {
+
+}

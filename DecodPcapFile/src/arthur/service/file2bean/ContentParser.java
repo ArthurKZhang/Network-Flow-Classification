@@ -27,7 +27,7 @@ public class ContentParser {
 			sb.deleteCharAt(sb.length() - 1);
 			SouAddrAndDesAddr[0] = sb.toString();
 
-			sb.delete(0, sb.length() - 1);
+			sb.setLength(0);
 			for (int i = 0; i < 4; i++) {
 				sb.append((int) (desAddrZone[i] & 0xff));
 				sb.append(".");

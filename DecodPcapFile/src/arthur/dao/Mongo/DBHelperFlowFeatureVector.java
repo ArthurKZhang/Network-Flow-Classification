@@ -23,7 +23,11 @@ public class DBHelperFlowFeatureVector implements ConfigFlowFeatureVector {
 			mongoClient.close();
 		}
 	}
-
+	public static void dropCollection(){
+		MongoClient mongoClient = new MongoClient(HOST, PORT);
+		MongoDatabase db = mongoClient.getDatabase(DB_NAME);
+		db.getCollection(COLLECTION_NAME).drop();
+	}
 	public static boolean save(FlowFeatureVector fv) {
 		MongoClient mongoClient = new MongoClient(HOST, PORT);
 		MongoDatabase mongoDatabase = mongoClient.getDatabase(DB_NAME);

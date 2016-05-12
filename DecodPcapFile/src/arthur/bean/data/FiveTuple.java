@@ -15,6 +15,12 @@ public class FiveTuple {
 		this.protocol = protocol;
 	}
 
+	@Override
+	public String toString() {
+		return "FiveTuple [souAddress=" + souAddress + ", desAddress=" + desAddress + ", souPort=" + souPort
+				+ ", desPort=" + desPort + ", protocol=" + protocol + "]";
+	}
+
 	public String getSouAddress() {
 		return souAddress;
 	}

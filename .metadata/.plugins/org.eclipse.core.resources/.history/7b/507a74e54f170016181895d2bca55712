@@ -1,0 +1,12 @@
+package arthur.service.classification;
+
+import java.util.List;
+import java.util.Map;
+
+import arthur.bean.data.FlowFeatureVector;
+
+public class Classification {
+	public static void classifier(Map<String, List<FlowFeatureVector>> trainedMap) {
+
+	}
+}
