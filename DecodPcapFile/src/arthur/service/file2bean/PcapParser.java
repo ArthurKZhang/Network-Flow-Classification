@@ -114,7 +114,6 @@ public class PcapParser {
 			ipPacket.setSize(size);
 
 			// save to DB
-			DBHelperIPPacket.createCollection();
 			if (!DBHelperIPPacket.save(ipPacket)) {
 				System.err.println("packet number " + count + "parserERROR");
 				return false;

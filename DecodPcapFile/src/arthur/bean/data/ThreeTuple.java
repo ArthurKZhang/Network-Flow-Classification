@@ -67,4 +67,9 @@ public class ThreeTuple {
 		this.protocol = protocol;
 	}
 
+	@Override
+	public String toString() {
+		return "ThreeTuple [desAddress=" + desAddress + ", desPort=" + desPort + ", protocol=" + protocol + "]";
+	}
+
 }

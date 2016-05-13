@@ -2,12 +2,15 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="package header time_s" key="selection"/>
+		<item value="" key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
+			<item value="--v---"/>
+			<item value="-v-"/>
+			<item value="float"/>
 			<item value="package header time_s"/>
 			<item value="byteArrayToShort"/>
 			<item value="BteArrayUtil.byteArrayToInt"/>
@@ -15,6 +18,7 @@
 			<item value="reverseByteArray"/>
 		</list>
 		<list key="replacehistory">
+			<item value="double"/>
 			<item value="ByteArrayUtil.byteArrayToShort"/>
 			<item value="ByteArrayUtil.byteArrayToInt"/>
 			<item value="BteArrayUtil.byteArrayToInt"/>
@@ -25,7 +29,7 @@
 		<item value="273" key="DIALOG_WIDTH"/>
 		<item value="1|微软雅黑|9.0|0|WINDOWS|1|-12|0|0|0|400|0|0|0|1|0|0|0|0|微软雅黑" key="DIALOG_FONT_NAME"/>
 		<item value="399" key="DIALOG_HEIGHT"/>
-		<item value="555" key="DIALOG_X_ORIGIN"/>
-		<item value="111" key="DIALOG_Y_ORIGIN"/>
+		<item value="940" key="DIALOG_X_ORIGIN"/>
+		<item value="133" key="DIALOG_Y_ORIGIN"/>
 	</section>
 </section>

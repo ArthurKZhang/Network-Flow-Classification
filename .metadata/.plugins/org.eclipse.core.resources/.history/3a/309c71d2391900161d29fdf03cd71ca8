@@ -1,0 +1,75 @@
+package arthur.service.classification;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import javax.print.attribute.standard.PrinterLocation;
+
+import com.mongodb.DB;
+
+import arthur.bean.data.FlowFeatureVector;
+import arthur.bean.data.IPPacket;
+import arthur.bean.data.NetworkFlow;
+import arthur.dao.Mongo.DBHelperBOF;
+import arthur.dao.Mongo.DBHelperFlowFeatureVector;
+import arthur.dao.Mongo.DBHelperIPPacket;
+import arthur.dao.Mongo.DBHelperNetWorkFlow;
+import arthur.service.datatrans.DataTransAlgorithm;
+import arthur.service.datatrans.TransImp;
+import arthur.service.file2bean.PcapParser;
+
+public class StartClassification {
+	public static void main(String[] args){
+		dropAll();
+		createAll();
+//		//读取文件到数据库
+		InputStream is;
+		try {
+			is = new FileInputStream("D:\\00DATA\\BS\\dns.pcap");
+			pcap2DB2V(is);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+//		v2BoF();
+		//读取训练数据到数据库
+		//从数据库获得Bof进行分类
+		//分类结果输出 并 保存到数据库
+	}
+	
+	private static void createAll(){
+		DBHelperIPPacket.createCollection();
+		DBHelperNetWorkFlow.createCollection();
+		DBHelperFlowFeatureVector.createCollection();
+		DBHelperBOF.createCollection();
+	}
+	
+	private static void dropAll(){
+		DBHelperIPPacket.dropCollection();
+		DBHelperFlowFeatureVector.dropCollection();
+		DBHelperNetWorkFlow.dropCollection();
+		DBHelperBOF.dropCollection();
+	}
+	
+	private static void pcap2DB2V(InputStream is){
+		try {
+			PcapParser.unpack(is);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+//		List<IPPacket> ps = DBHelperIPPacket.queryAll();
+//		TransImp.ipPacket2NetFlow2FVector(ps);
+	}
+	private static void v2BoF(){
+		List<FlowFeatureVector> vs = DBHelperFlowFeatureVector.queryAll();
+		TransImp.featureVector2BOF(vs);
+	}
+	private static void println(String s){
+		System.out.println(s);
+	}
+	
+}

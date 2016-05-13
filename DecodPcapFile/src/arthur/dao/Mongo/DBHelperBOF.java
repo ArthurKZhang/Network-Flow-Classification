@@ -1,12 +1,17 @@
 package arthur.dao.Mongo;
 
 import org.bson.Document;
+import org.bson.codecs.configuration.CodecRegistries;
+import org.bson.codecs.configuration.CodecRegistry;
 
 import com.mongodb.MongoClient;
+import com.mongodb.MongoClientOptions;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 
 import arthur.bean.data.BoF;
+import arthur.dao.codec.FlowFeatureVectorCodec;
+import arthur.dao.codec.IPPacketCodec;
 
 public class DBHelperBOF implements ConfigBOF {
 //	public static 
@@ -29,10 +34,18 @@ public class DBHelperBOF implements ConfigBOF {
 		db.getCollection(COLLECTION_NAME).drop();
 	}
 	public static boolean save(BoF bof) {
-		MongoClient mongoClient = new MongoClient(HOST, PORT);
+		CodecRegistry codecRegistry = 
+                CodecRegistries.fromRegistries(
+                        CodecRegistries.fromCodecs(new FlowFeatureVectorCodec()),
+                        MongoClient.getDefaultCodecRegistry());
+        MongoClientOptions options = MongoClientOptions.builder()
+                .codecRegistry(codecRegistry).build();
+		// host[:port]
+		MongoClient mongoClient = new MongoClient(HOST+":"+PORT+"", options);//new MongoClient(HOST, PORT);
 		MongoDatabase mongoDatabase = mongoClient.getDatabase(DB_NAME);
 		try {
 			MongoCollection<Document> collection = mongoDatabase.getCollection(COLLECTION_NAME);
+			System.out.println(bof);
 			Document b = new Document("desAddress",bof.get_3tuple().getDesAddress())
 					.append("desPort", bof.get_3tuple().getDesPort())
 					.append("protocol", bof.get_3tuple().getProtocol())
@@ -40,7 +53,7 @@ public class DBHelperBOF implements ConfigBOF {
 			collection.insertOne(b);
 			return true;
 		} catch (Exception e) {
-			System.err.println(e.getClass().getName() + ": " + e.getMessage());
+			e.printStackTrace();
 			return false;
 		}finally {
 			mongoClient.close();

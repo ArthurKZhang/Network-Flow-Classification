@@ -1,12 +1,19 @@
 package arthur.dao.Mongo;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import org.bson.Document;
 
 import com.mongodb.MongoClient;
+import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
 
 import arthur.bean.data.FlowFeatureVector;
+import arthur.bean.data.IPPacket;
+import arthur.bean.data.ThreeTuple;
 
 public class DBHelperFlowFeatureVector implements ConfigFlowFeatureVector {
 //	public static 
@@ -54,5 +61,34 @@ public class DBHelperFlowFeatureVector implements ConfigFlowFeatureVector {
 		}finally {
 			mongoClient.close();
 		}
+	}
+	
+	public static List<FlowFeatureVector> queryAll(){
+		MongoClient mongoClient = new MongoClient(HOST, PORT);
+		MongoDatabase db = mongoClient.getDatabase(DB_NAME);
+		FindIterable<Document> findIterable = db.getCollection(COLLECTION_NAME).find();
+		MongoCursor<Document> mongoCursor = findIterable.iterator();
+		List<FlowFeatureVector> vs = new LinkedList<>();
+		while(mongoCursor.hasNext()){  
+            Document d = mongoCursor.next();
+            FlowFeatureVector v = new FlowFeatureVector();
+            v.set_3tuple(new ThreeTuple(d.getString("desAddress"), d.getInteger("desPort"), d.getInteger("protocol")));
+            
+            v.setSize_packet(d.getInteger("pSize"));
+			v.setSize_bytes(d.getInteger("bSize"));
+
+			v.setMin_size(d.getInteger("pMin"));
+			v.setMax_size(d.getInteger("pMax"));
+			v.setMean_size(d.getDouble("pMean"));
+			v.setStdDev_size(d.getDouble("pDev"));
+			
+			v.setMin_time(d.getLong("tMin"));
+			v.setMax_time(d.getLong("tMax"));
+			v.setMean_time(d.getDouble("tMean"));
+			v.setStdDev_time(d.getDouble("tDev"));
+            vs.add(v);
+         } 
+		mongoClient.close();
+		return vs;
 	}
 }

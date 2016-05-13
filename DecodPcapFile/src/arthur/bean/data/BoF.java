@@ -23,4 +23,9 @@ public class BoF {
 		this.flowFeaVectorList = flowFeaVectorList;
 	}
 
+	@Override
+	public String toString() {
+		return "BoF [_3tuple=" + _3tuple + ", flowFeaVectorList=" + flowFeaVectorList + "]";
+	}
+	
 }

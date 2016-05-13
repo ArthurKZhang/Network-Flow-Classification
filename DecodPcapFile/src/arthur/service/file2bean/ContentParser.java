@@ -61,7 +61,7 @@ public class ContentParser {
 
 	public static boolean isIpv42(byte[] ipPacket) {
 		int v = (ByteArrayUtil.extractInteger(ipPacket, 0, 1) >> 4) & 0xf;
-		System.out.println("---v---- "+v);
+//		System.out.println("---v---- "+v);
 		return v == 4 ? true : false;
 	}
 

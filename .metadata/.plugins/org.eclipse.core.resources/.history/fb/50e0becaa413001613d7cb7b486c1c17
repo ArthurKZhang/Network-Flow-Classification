@@ -1,8 +1,0 @@
-package arthur.dao.Mongo;
-
-public interface ConfigIPPacket {
-	String HOST = "localhost";
-	String PORT = "27017";
-	String DB_NAME = "BS";
-	String COLLECTION_NAME = "IPPacket";
-}

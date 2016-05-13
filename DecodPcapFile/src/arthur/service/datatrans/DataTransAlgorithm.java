@@ -30,13 +30,13 @@ public class DataTransAlgorithm {
 		Object[] tim_Packs = getMinMaxMeanStd_DevOfTimeInfo(netflow);
 		ffVector.setMin_size((Integer) siz_Packs[0]);
 		ffVector.setMax_size((Integer) siz_Packs[1]);
-		ffVector.setMean_size((Float) siz_Packs[2]);
-		ffVector.setStdDev_size((Float) siz_Packs[3]);
+		ffVector.setMean_size((Double) siz_Packs[2]);
+		ffVector.setStdDev_size((Double) siz_Packs[3]);
 
 		ffVector.setMin_time((Long) tim_Packs[0]);
 		ffVector.setMax_time((Long) tim_Packs[1]);
-		ffVector.setMean_time((Float) tim_Packs[2]);
-		ffVector.setStdDev_time((Float) tim_Packs[3]);
+		ffVector.setMean_time((Double) tim_Packs[2]);
+		ffVector.setStdDev_time((Double) tim_Packs[3]);
 		return ffVector;
 	}
 
@@ -69,7 +69,7 @@ public class DataTransAlgorithm {
 	private static Object[] getMinMaxMeanStd_DevOfSizeInfo(NetworkFlow netflow) {
 		Object[] sizeInfos = new Object[4];
 		int min = Integer.MAX_VALUE, max = 0;
-		float mean = 0, stdDev = 0;
+		double mean = 0, stdDev = 0;
 		for (IPPacket p : netflow.getPacketList()) {
 			mean += p.getSize();
 			if (min > p.getSize())
@@ -79,9 +79,9 @@ public class DataTransAlgorithm {
 		}
 		mean /= netflow.getPacketList().size();
 		for (IPPacket p : netflow.getPacketList()) {
-			stdDev += Math.sqrt(p.getSize() - mean);
+			stdDev += Math.pow((p.getSize() - mean),2);
 		}
-		stdDev = (float) Math.pow(stdDev / netflow.getPacketList().size(), 2);
+		stdDev = Math.sqrt(stdDev / netflow.getPacketList().size());
 		sizeInfos[0] = min;
 		sizeInfos[1] = max;
 		sizeInfos[2] = mean;
@@ -101,7 +101,7 @@ public class DataTransAlgorithm {
 		// !!!!!!!!use BigDecemal later!!!!!!!!!
 		Object[] timeInfos = new Object[4];
 		long min = Long.MAX_VALUE, max = 0;
-		float mean = 0, stdDev = 0;
+		double mean = 0, stdDev = 0;
 		for (IPPacket p : netflow.getPacketList()) {
 			mean += p.getTime_s();
 			if (min > p.getTime_s())
@@ -113,7 +113,7 @@ public class DataTransAlgorithm {
 		for (IPPacket p : netflow.getPacketList()) {
 			stdDev += Math.sqrt(p.getTime_s() - mean);
 		}
-		stdDev = (float) Math.pow(stdDev / netflow.getPacketList().size(), 2);
+		stdDev = Math.pow(stdDev / netflow.getPacketList().size(), 2);
 		timeInfos[0] = min;
 		timeInfos[1] = max;
 		timeInfos[2] = mean;
@@ -137,6 +137,7 @@ public class DataTransAlgorithm {
 				continue;
 			List<FlowFeatureVector> list = getffVectorBy3THash(hashcode, vecList);
 			BoF bof = new BoF();
+			bof.set_3tuple(ffv.get_3tuple());
 			bof.setFlowFeaVectorList(list);
 			map.put(hashcode, bof);
 		}
@@ -164,63 +165,89 @@ public class DataTransAlgorithm {
 	public static Map<Integer, NetworkFlow> packets2NetworkFlow(List<IPPacket> packets) {
 		Map<Integer, NetworkFlow> map = new HashMap<Integer, NetworkFlow>();
 		for (IPPacket p : packets) {
-			int hashcode = p.get_5tuple().hashCode();
-			NetworkFlow flow = getNetworkFlowBy5THsah(hashcode, map);
-			if (flow == null) {
-				flow = new NetworkFlow();
+			if(map.keySet().isEmpty()){
+				NetworkFlow flow= new NetworkFlow();
 				flow.set_5tuple(p.get_5tuple());
 				LinkedList<IPPacket> l = new LinkedList<IPPacket>();
 				l.add(p);
 				flow.setPacketList(l);
-				map.put(hashcode, flow);
-			} else {
-				flow.getPacketList().add(p);
+				map.put(1, flow);
+				continue;
+			}
+			Object[] ks = map.keySet().toArray();
+			int length = ks.length;
+			for(int i = 0;i<length;i++){
+				NetworkFlow flow = getNetworkFlowBykey((Integer)ks[i], map);
+				if(insertable(flow, p)){
+					//插入
+					flow.getPacketList().add(p);
+					map.put((Integer)ks[i], flow);
+					break;
+				}
+				if(i==ks.length-1){
+					NetworkFlow newflow = new NetworkFlow();
+					newflow.set_5tuple(p.get_5tuple());
+					LinkedList<IPPacket> l = new LinkedList<IPPacket>();
+					l.add(p);
+					newflow.setPacketList(l);
+					map.put((Integer)ks[i]+1, newflow);
+				}
 			}
 		}
 		return map;
 	}
 
-	/**
-	 * 把 packet 分成流的时候要考虑到时间间隔问题，这个在这个方法中没有处理，所以他把所有相同五元组的
-	 * @param packets
-	 * @return
-	 */
-	public static List<NetworkFlow> packets2NetworkFlowl(List<IPPacket> packets) {
-		List<NetworkFlow> flowList = new LinkedList<NetworkFlow>();
-		for (IPPacket p : packets) {
-			int hashcode = p.get_5tuple().hashCode();
-			NetworkFlow flow = getNetworkFlowBy5THsah(hashcode, flowList);
-			if (flow == null) {
-				flow = new NetworkFlow();
-				flow.set_5tuple(p.get_5tuple());
-				LinkedList<IPPacket> l = new LinkedList<IPPacket>();
-				l.add(p);
-				flow.setPacketList(l);
-				flowList.add(flow);
-			} else {
-				flow.getPacketList().add(p);
+	private static boolean insertable(NetworkFlow f, IPPacket p){
+		List<IPPacket> ls = f.getPacketList();
+		for(IPPacket i:ls){
+			if(i.getTime_s()==p.getTime_s()){
+				return true;
 			}
 		}
-		return flowList;
+		return false;
 	}
-
-	private static NetworkFlow getNetworkFlowBy5THsah(int hashcode, Map<Integer, NetworkFlow> flowMap) {
-		if (flowMap.size() == 0 && !flowMap.containsKey(new Integer(hashcode))) {
+	
+	private static NetworkFlow getNetworkFlowBykey(int key, Map<Integer, NetworkFlow> flowMap) {
+		if (flowMap.size() == 0 && !flowMap.containsKey(new Integer(key))) {
 			return null;
 		}
-		NetworkFlow nf = flowMap.get(hashcode);
+		NetworkFlow nf = flowMap.get(key);
 		return nf;
 	}
-
-	private static NetworkFlow getNetworkFlowBy5THsah(int hashcode, List<NetworkFlow> flowList) {
-		if (flowList.size() == 0) {
-			return null;
-		}
-		for (NetworkFlow flow : flowList) {
-			if (flow.get_5tuple().hashCode() == hashcode) {
-				return flow;
-			}
-		}
-		return null;
-	}
 }
+///**
+//* 把 packet 分成流的时候要考虑到时间间隔问题，这个在这个方法中没有处理，所以他把所有相同五元组的
+//* @param packets
+//* @return
+//*/
+//public static List<NetworkFlow> packets2NetworkFlowl(List<IPPacket> packets) {
+//	List<NetworkFlow> flowList = new LinkedList<NetworkFlow>();
+//	for (IPPacket p : packets) {
+//		int hashcode = p.get_5tuple().hashCode();
+//		NetworkFlow flow = getNetworkFlowBy5THsah(hashcode, flowList);
+//		if (flow == null) {
+//			flow = new NetworkFlow();
+//			flow.set_5tuple(p.get_5tuple());
+//			LinkedList<IPPacket> l = new LinkedList<IPPacket>();
+//			l.add(p);
+//			flow.setPacketList(l);
+//			flowList.add(flow);
+//		} else {
+//			flow.getPacketList().add(p);
+//		}
+//	}
+//	return flowList;
+//}
+
+//
+//private static NetworkFlow getNetworkFlowBy5THsah(int hashcode, List<NetworkFlow> flowList) {
+//	if (flowList.size() == 0) {
+//		return null;
+//	}
+//	for (NetworkFlow flow : flowList) {
+//		if (flow.get_5tuple().hashCode() == hashcode) {
+//			return flow;
+//		}
+//	}
+//	return null;
+//}

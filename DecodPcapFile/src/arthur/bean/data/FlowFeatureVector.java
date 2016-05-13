@@ -1,5 +1,7 @@
 package arthur.bean.data;
 
+import org.bson.Document;
+
 public class FlowFeatureVector {
 	private ThreeTuple _3tuple; // can be used as id
 
@@ -8,16 +10,16 @@ public class FlowFeatureVector {
 
 	private int min_size; // min of packet size
 	private int max_size; // max of packet size
-	private float mean_size; // mean of packet size
-	private float stdDev_size; // Std Dev. of packet size
+	private double mean_size; // mean of packet size
+	private double stdDev_size; // Std Dev. of packet size
 
 	private long min_time; // min of arriving time
 	private long max_time; // max of arriving time
-	private float mean_time; // mean of arriving time
-	private float stdDev_time; // Std Dev. of arriving time
+	private double mean_time; // mean of arriving time
+	private double stdDev_time; // Std Dev. of arriving time
 
-	public FlowFeatureVector(int size_packet, int size_bytes, int min_size, int max_size, float mean_size,
-			float stdDev_size, int min_time, int max_time, float mean_time, float stdDev_time) {
+	public FlowFeatureVector(int size_packet, int size_bytes, int min_size, int max_size, double mean_size,
+			double stdDev_size, int min_time, int max_time, double mean_time, double stdDev_time) {
 		this.size_packet = size_packet;
 		this.size_bytes = size_bytes;
 		this.min_size = min_size;
@@ -32,6 +34,24 @@ public class FlowFeatureVector {
 	
 	public FlowFeatureVector(){
 		
+	}
+
+	public FlowFeatureVector(Document d) {
+
+		this._3tuple = new ThreeTuple(d.getString("desAddress"), 
+				d.getInteger("desPort"), d.getInteger("protocol"));
+		this.size_packet = d.getInteger("pSize");
+		this.size_bytes = d.getInteger("bSize");
+		
+		this.min_size = d.getInteger("pMin");
+		this.max_size = d.getInteger("pMax");
+		this.mean_size = d.getDouble("pMean");
+		this.stdDev_size = d.getDouble("pDev");
+		
+		this.min_time = d.getLong("tMin");
+		this.max_time = d.getLong("tMax");
+		this.mean_time = d.getDouble("tMean");
+		this.stdDev_time = d.getDouble("tDev");
 	}
 
 	public ThreeTuple get_3tuple() {
@@ -74,19 +94,19 @@ public class FlowFeatureVector {
 		this.max_size = max_size;
 	}
 
-	public float getMean_size() {
+	public double getMean_size() {
 		return mean_size;
 	}
 
-	public void setMean_size(float mean_size) {
+	public void setMean_size(double mean_size) {
 		this.mean_size = mean_size;
 	}
 
-	public float getStdDev_size() {
+	public double getStdDev_size() {
 		return stdDev_size;
 	}
 
-	public void setStdDev_size(float stdDev_size) {
+	public void setStdDev_size(double stdDev_size) {
 		this.stdDev_size = stdDev_size;
 	}
 
@@ -106,19 +126,19 @@ public class FlowFeatureVector {
 		this.max_time = tim_Packs;
 	}
 
-	public float getMean_time() {
+	public double getMean_time() {
 		return mean_time;
 	}
 
-	public void setMean_time(float mean_time) {
+	public void setMean_time(double mean_time) {
 		this.mean_time = mean_time;
 	}
 
-	public float getStdDev_time() {
+	public double getStdDev_time() {
 		return stdDev_time;
 	}
 
-	public void setStdDev_time(float stdDev_time) {
+	public void setStdDev_time(double stdDev_time) {
 		this.stdDev_time = stdDev_time;
 	}
 

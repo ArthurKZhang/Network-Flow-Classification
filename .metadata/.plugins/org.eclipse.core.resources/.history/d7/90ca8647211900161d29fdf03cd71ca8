@@ -1,0 +1,32 @@
+package arthur.dao.codec;
+
+import org.bson.BsonReader;
+import org.bson.BsonWriter;
+import org.bson.codecs.Codec;
+import org.bson.codecs.DecoderContext;
+import org.bson.codecs.EncoderContext;
+
+import arthur.bean.data.FlowFeatureVector;
+import arthur.bean.data.IPPacket;
+
+public class FlowFeatureVectorCodec implements Codec<FlowFeatureVector>{
+
+	@Override
+	public void encode(BsonWriter writer, FlowFeatureVector value, EncoderContext encoderContext) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public Class<FlowFeatureVector> getEncoderClass() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public FlowFeatureVector decode(BsonReader reader, DecoderContext decoderContext) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

@@ -1,0 +1,43 @@
+package arthur.dao.codec;
+
+import org.bson.BsonReader;
+import org.bson.BsonWriter;
+import org.bson.Document;
+import org.bson.codecs.Codec;
+import org.bson.codecs.DecoderContext;
+import org.bson.codecs.EncoderContext;
+
+import arthur.bean.data.FlowFeatureVector;
+
+public class FlowFeatureVectorCodec implements Codec<FlowFeatureVector>{
+
+	@Override
+	public void encode(BsonWriter writer, FlowFeatureVector fv, EncoderContext encoderContext) {
+		Document fVector = new Document("desAddress",fv.get_3tuple().getDesAddress())
+				.append("desPort", fv.get_3tuple().getDesPort())
+				.append("protocol", fv.get_3tuple().getProtocol())
+				.append("pSize", fv.getSize_packet())
+				.append("bSize", fv.getSize_bytes())
+				.append("pMin", fv.getMin_size())
+				.append("pMax", fv.getMax_size())
+				.append("pMean", fv.getMean_size())
+				.append("pDev", fv.getStdDev_size())
+				.append("tMin", fv.getMin_time())
+				.append("tMax", fv.getMax_time())
+				.append("tMean", fv.getMean_time())
+				.append("tDev", fv.getStdDev_time());
+		writer.writeString(d.toJson());		
+	}
+
+	@Override
+	public Class<FlowFeatureVector> getEncoderClass() {
+		return FlowFeatureVector.class;
+	}
+
+	@Override
+	public FlowFeatureVector decode(BsonReader reader, DecoderContext decoderContext) {
+		String json = reader.readString();
+		return new FlowFeatureVector(Document.parse(json));
+	}
+
+}

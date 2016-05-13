@@ -1,0 +1,164 @@
+package arthur.bean.data;
+
+import org.bson.Document;
+
+public class FlowFeatureVector {
+	private ThreeTuple _3tuple; // can be used as id
+
+	private int size_packet;// number of packets transferred in unidirection
+	private int size_bytes; // volume of bytes transferred in unidirection
+
+	private int min_size; // min of packet size
+	private int max_size; // max of packet size
+	private double mean_size; // mean of packet size
+	private double stdDev_size; // Std Dev. of packet size
+
+	private long min_time; // min of arriving time
+	private long max_time; // max of arriving time
+	private double mean_time; // mean of arriving time
+	private double stdDev_time; // Std Dev. of arriving time
+
+	public FlowFeatureVector(int size_packet, int size_bytes, int min_size, int max_size, double mean_size,
+			double stdDev_size, int min_time, int max_time, double mean_time, double stdDev_time) {
+		this.size_packet = size_packet;
+		this.size_bytes = size_bytes;
+		this.min_size = min_size;
+		this.max_size = max_size;
+		this.mean_size = mean_size;
+		this.stdDev_size = stdDev_size;
+		this.min_time = min_time;
+		this.max_time = max_time;
+		this.mean_time = mean_time;
+		this.stdDev_time = stdDev_time;
+	}
+	
+	public FlowFeatureVector(){
+		
+	}
+
+	public FlowFeatureVector(Document d) {
+		Document fVector = n 
+
+				.append("pSize", fv.getSize_packet())
+				.append("bSize", fv.getSize_bytes())
+				.append("pMin", fv.getMin_size())
+				.append("pMax", fv.getMax_size())
+				.append("pMean", fv.getMean_size())
+				.append("pDev", fv.getStdDev_size())
+				.append("tMin", fv.getMin_time())
+				.append("tMax", fv.getMax_time())
+				.append("tMean", fv.getMean_time())
+				.append("tDev", fv.getStdDev_time());
+		this._3tuple = new ThreeTuple(d.getString("desAddress"), 
+				d.getInteger("desPort"), d.getInteger("protocol"));
+		this.size_packet = d.getInteger("pSize");
+		this.size_bytes = d.getInteger("bSize");
+		
+		this.min_size = d.getInteger("pMin");
+		this.max_size = d.getInteger("pMax");
+		this.mean_size = d.getDouble("pMean");
+		this.stdDev_size = d.getDouble("pDev");
+		
+		this.min_time = d.getLong("tMin");
+		this.max_time = d.getLong("tMax");
+		this.mean_time = d.getDouble("tMean");
+		this.stdDev_time = d.getDouble("tDev");
+	}
+
+	public ThreeTuple get_3tuple() {
+		return _3tuple;
+	}
+
+	public void set_3tuple(ThreeTuple _3tuple) {
+		this._3tuple = _3tuple;
+	}
+
+	public int getSize_packet() {
+		return size_packet;
+	}
+
+	public void setSize_packet(int size_packet) {
+		this.size_packet = size_packet;
+	}
+
+	public int getSize_bytes() {
+		return size_bytes;
+	}
+
+	public void setSize_bytes(int size_bytes) {
+		this.size_bytes = size_bytes;
+	}
+
+	public int getMin_size() {
+		return min_size;
+	}
+
+	public void setMin_size(int min_size) {
+		this.min_size = min_size;
+	}
+
+	public int getMax_size() {
+		return max_size;
+	}
+
+	public void setMax_size(int max_size) {
+		this.max_size = max_size;
+	}
+
+	public double getMean_size() {
+		return mean_size;
+	}
+
+	public void setMean_size(double mean_size) {
+		this.mean_size = mean_size;
+	}
+
+	public double getStdDev_size() {
+		return stdDev_size;
+	}
+
+	public void setStdDev_size(double stdDev_size) {
+		this.stdDev_size = stdDev_size;
+	}
+
+	public long getMin_time() {
+		return min_time;
+	}
+
+	public void setMin_time(Long tim_Packs) {
+		this.min_time = tim_Packs;
+	}
+
+	public long getMax_time() {
+		return max_time;
+	}
+
+	public void setMax_time(Long tim_Packs) {
+		this.max_time = tim_Packs;
+	}
+
+	public double getMean_time() {
+		return mean_time;
+	}
+
+	public void setMean_time(double mean_time) {
+		this.mean_time = mean_time;
+	}
+
+	public double getStdDev_time() {
+		return stdDev_time;
+	}
+
+	public void setStdDev_time(double stdDev_time) {
+		this.stdDev_time = stdDev_time;
+	}
+
+	@Override
+	public String toString() {
+		return "FlowFeatureVector [_3tuple=" + _3tuple + ", size_packet=" + size_packet + ", size_bytes=" + size_bytes
+				+ ", min_size=" + min_size + ", max_size=" + max_size + ", mean_size=" + mean_size + ", stdDev_size="
+				+ stdDev_size + ", min_time=" + min_time + ", max_time=" + max_time + ", mean_time=" + mean_time
+				+ ", stdDev_time=" + stdDev_time + "]";
+	}
+
+}
