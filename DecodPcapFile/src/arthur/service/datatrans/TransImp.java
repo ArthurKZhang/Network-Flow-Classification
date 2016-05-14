@@ -11,9 +11,10 @@ import arthur.bean.data.NetworkFlow;
 import arthur.dao.Mongo.DBHelperBOF;
 import arthur.dao.Mongo.DBHelperFlowFeatureVector;
 import arthur.dao.Mongo.DBHelperNetWorkFlow;
+import arthur.dao.Mongo.DBHelperTrainVector;
 
 public class TransImp {
-	public static int ipPacket2NetFlow2FVector(List<IPPacket> packets) {
+	public static int ipPacket2NetFlow2FVector(List<IPPacket> packets,int Vdb,String type) {
 		Map<Integer, NetworkFlow> map = DataTransAlgorithm.packets2NetworkFlow(packets);
 		Set<Integer> keys = map.keySet();
 		int count = 0;
@@ -25,13 +26,29 @@ public class TransImp {
 				System.err.println("save NetWorkFlow " + (count + 1) + " ERROR:flowDetails--\n" + nf.toString());
 			} else {
 				count++;
-				netflow2FeatureVector(nf);
-			}
+				if(Vdb==1){
+					//训练数据集存储
+					netflow2FeatureVector2(nf, type);
+				}else{
+					//待分类数据集存储
+					netflow2FeatureVector(nf);
+				}
+				
+			} 
 		}
 		System.out.println(count);
 		return count;
 	}
-
+	
+	private static boolean netflow2FeatureVector2(NetworkFlow nf, String type) {
+		FlowFeatureVector fv = DataTransAlgorithm.getFlowFeatureVector(nf);
+		if (!DBHelperTrainVector.save(fv, type)) {
+			System.err.println("save TRAIN Vector ERROR: vector details:--\n" + fv.toString());
+			return false;
+		}
+		return true;
+	}
+	
 	private static boolean netflow2FeatureVector(NetworkFlow nf) {
 		FlowFeatureVector fv = DataTransAlgorithm.getFlowFeatureVector(nf);
 		if (!DBHelperFlowFeatureVector.save(fv)) {

@@ -1,14 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-<fullyQualifiedTypeName name="java.util.Date"/>
-<fullyQualifiedTypeName name="pcap.databean.arthur.PcapDataHeader"/>
-<fullyQualifiedTypeName name="pcap.util.arthur.ByteArrayUtil"/>
-<fullyQualifiedTypeName name="java.util.Arrays"/>
-<fullyQualifiedTypeName name="java.lang.Long"/>
-<fullyQualifiedTypeName name="java.nio.ByteBuffer"/>
-<fullyQualifiedTypeName name="pcap.util.arthur.PcapParser"/>
-<fullyQualifiedTypeName name="java.util.Calendar"/>
-<fullyQualifiedTypeName name="data.bean.arthur.NetworkFlow"/>
 <fullyQualifiedTypeName name="data.bean.arthur.FiveTuple"/>
 <fullyQualifiedTypeName name="java.lang.Byte"/>
 <fullyQualifiedTypeName name="data.bean.arthur.IPPacket"/>
@@ -25,9 +16,6 @@
 <fullyQualifiedTypeName name="java.util.Set"/>
 <fullyQualifiedTypeName name="arthur.dao.Mongo.ConfigFlowFeatureVector"/>
 <fullyQualifiedTypeName name="arthur.bean.data.TrainingSample"/>
-<fullyQualifiedTypeName name="arthur.bean.data.BoF"/>
-<fullyQualifiedTypeName name="java.lang.Object"/>
-<fullyQualifiedTypeName name="arthur.service.classification.Distance"/>
 <fullyQualifiedTypeName name="java.lang.Double"/>
 <fullyQualifiedTypeName name="arthur.service.classification.BigDecimalCalculate"/>
 <fullyQualifiedTypeName name="java.math.BigDecimal"/>
@@ -35,7 +23,6 @@
 <fullyQualifiedTypeName name="arthur.service.file2bean.PcapParser"/>
 <fullyQualifiedTypeName name="com.mongodb.client.FindIterable"/>
 <fullyQualifiedTypeName name="com.mongodb.client.MongoCursor"/>
-<fullyQualifiedTypeName name="java.util.ArrayList"/>
 <fullyQualifiedTypeName name="java.util.LinkedList"/>
 <fullyQualifiedTypeName name="java.util.List"/>
 <fullyQualifiedTypeName name="javax.print.attribute.standard.PrinterLocation"/>
@@ -48,16 +35,29 @@
 <fullyQualifiedTypeName name="com.mongodb.MongoClient"/>
 <fullyQualifiedTypeName name="com.mongodb.DB"/>
 <fullyQualifiedTypeName name="arthur.dao.Mongo.DBHelperIPPacket"/>
-<fullyQualifiedTypeName name="arthur.dao.Mongo.DBHelperBOF"/>
 <fullyQualifiedTypeName name="arthur.dao.Mongo.DBHelperNetWorkFlow"/>
 <fullyQualifiedTypeName name="arthur.dao.Mongo.DBHelperFlowFeatureVector"/>
 <fullyQualifiedTypeName name="arthur.service.datatrans.TransImp"/>
-<fullyQualifiedTypeName name="arthur.bean.data.FlowFeatureVector"/>
-<fullyQualifiedTypeName name="org.bson.Document"/>
 <fullyQualifiedTypeName name="arthur.bean.data.ThreeTuple"/>
 <fullyQualifiedTypeName name="arthur.dao.codec.FlowFeatureVectorCodec"/>
 <fullyQualifiedTypeName name="arthur.bean.data.NetworkFlow"/>
 <fullyQualifiedTypeName name="arthur.bean.data.IPPacket"/>
-<fullyQualifiedTypeName name="java.lang.System"/>
 <fullyQualifiedTypeName name="java.lang.Integer"/>
+<fullyQualifiedTypeName name="java.io.InputStream"/>
+<fullyQualifiedTypeName name="java.util.ArrayList"/>
+<fullyQualifiedTypeName name="arthur.cmd.DataPreparation"/>
+<fullyQualifiedTypeName name="java.util.Scanner"/>
+<fullyQualifiedTypeName name="java.util.HashMap"/>
+<fullyQualifiedTypeName name="arthur.dao.Mongo.DBHelperBOF"/>
+<fullyQualifiedTypeName name="java.lang.Object"/>
+<fullyQualifiedTypeName name="arthur.bean.data.BoF"/>
+<fullyQualifiedTypeName name="arthur.service.classification.Classification"/>
+<fullyQualifiedTypeName name="arthur.dao.Mongo.DBHelperTrainVector"/>
+<fullyQualifiedTypeName name="java.util.Map"/>
+<fullyQualifiedTypeName name="arthur.service.classification.Distance"/>
+<fullyQualifiedTypeName name="arthur.service.classification.AVGDis"/>
+<fullyQualifiedTypeName name="arthur.service.classification.MINDis"/>
+<fullyQualifiedTypeName name="java.lang.System"/>
+<fullyQualifiedTypeName name="arthur.bean.data.FlowFeatureVector"/>
+<fullyQualifiedTypeName name="org.bson.Document"/>
 </qualifiedTypeNameHistroy>

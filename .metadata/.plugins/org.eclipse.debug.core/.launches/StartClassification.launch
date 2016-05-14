@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <launchConfiguration type="org.eclipse.jdt.launching.localJavaApplication">
 <listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_PATHS">
-<listEntry value="/DecodPcapFile/src/arthur/service/classification/StartClassification.java"/>
+<listEntry value="/DecodPcapFile/src/arthur/cmd/StartClassification.java"/>
 </listAttribute>
 <listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_TYPES">
 <listEntry value="1"/>
 </listAttribute>
-<stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="arthur.service.classification.StartClassification"/>
+<stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="arthur.cmd.StartClassification"/>
 <stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="DecodPcapFile"/>
 </launchConfiguration>

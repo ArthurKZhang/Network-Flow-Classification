@@ -1,0 +1,106 @@
+package arthur.dao.Mongo;
+
+import java.util.LinkedList;
+import java.util.List;
+
+import org.bson.Document;
+import org.bson.codecs.configuration.CodecRegistries;
+import org.bson.codecs.configuration.CodecRegistry;
+
+import com.mongodb.MongoClient;
+import com.mongodb.MongoClientOptions;
+import com.mongodb.client.FindIterable;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoCursor;
+import com.mongodb.client.MongoDatabase;
+
+import arthur.bean.data.BoF;
+import arthur.bean.data.ThreeTuple;
+import arthur.dao.codec.FlowFeatureVectorCodec;
+import arthur.dao.codec.IPPacketCodec;
+
+public class DBHelperBOF implements ConfigBOF {
+//	public static 
+	
+	public static void createCollection() {
+		MongoClient mongoClient = new MongoClient(HOST, PORT);
+		MongoDatabase db = mongoClient.getDatabase(DB_NAME);
+		try {
+			db.createCollection(COLLECTION_NAME);
+			System.out.println("Collection--" + COLLECTION_NAME + "--created");
+		} catch (Exception e) {
+			System.err.println(e.getClass().getName() + ": " + e.getMessage());
+		} finally {
+			mongoClient.close();
+		}
+	}
+	public static void dropCollection(){
+		MongoClient mongoClient = new MongoClient(HOST, PORT);
+		MongoDatabase db = mongoClient.getDatabase(DB_NAME);
+		db.getCollection(COLLECTION_NAME).drop();
+	}
+	public static boolean save(BoF bof) {
+		CodecRegistry codecRegistry = 
+                CodecRegistries.fromRegistries(
+                        CodecRegistries.fromCodecs(new FlowFeatureVectorCodec()),
+                        MongoClient.getDefaultCodecRegistry());
+        MongoClientOptions options = MongoClientOptions.builder()
+                .codecRegistry(codecRegistry).build();
+		// host[:port]
+		MongoClient mongoClient = new MongoClient(HOST+":"+PORT+"", options);//new MongoClient(HOST, PORT);
+		MongoDatabase mongoDatabase = mongoClient.getDatabase(DB_NAME);
+		try {
+			MongoCollection<Document> collection = mongoDatabase.getCollection(COLLECTION_NAME);
+			System.out.println(bof);
+			Document b = new Document("desAddress",bof.get_3tuple().getDesAddress())
+					.append("desPort", bof.get_3tuple().getDesPort())
+					.append("protocol", bof.get_3tuple().getProtocol())
+					.append("vectorList", bof.getFlowFeaVectorList());
+			collection.insertOne(b);
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}finally {
+			mongoClient.close();
+		}
+	}
+	
+	public static List<BoF> queryAll(){
+//		MongoClient mongoClient = new MongoClient(HOST, PORT);
+		CodecRegistry codecRegistry = 
+                CodecRegistries.fromRegistries(
+                        CodecRegistries.fromCodecs(new FlowFeatureVectorCodec()),
+                        MongoClient.getDefaultCodecRegistry());
+        MongoClientOptions options = MongoClientOptions.builder()
+                .codecRegistry(codecRegistry).build();
+		// host[:port]
+		MongoClient mongoClient = new MongoClient(HOST+":"+PORT+"", options);//new MongoClient(HOST, PORT);
+		MongoDatabase db = mongoClient.getDatabase(DB_NAME);
+		FindIterable<Document> findIterable = db.getCollection(COLLECTION_NAME).find();
+		MongoCursor<Document> mongoCursor = findIterable.iterator();
+		List<BoF> vs = new LinkedList<>();
+		while(mongoCursor.hasNext()){  
+            Document d = mongoCursor.next();
+            BoF v = new BoF();
+            v.set_3tuple(new ThreeTuple(d.getString("desAddress"), d.getInteger("desPort"), d.getInteger("protocol")));
+            
+            v.setSize_packet(d.getInteger("pSize"));
+			v.setSize_bytes(d.getInteger("bSize"));
+
+			v.setMin_size(d.getInteger("pMin"));
+			v.setMax_size(d.getInteger("pMax"));
+			v.setMean_size(d.getDouble("pMean"));
+			v.setStdDev_size(d.getDouble("pDev"));
+			
+			v.setMin_time(d.getLong("tMin"));
+			v.setMax_time(d.getLong("tMax"));
+			v.setMean_time(d.getDouble("tMean"));
+			v.setStdDev_time(d.getDouble("tDev"));
+            vs.add(v);
+         } 
+		mongoClient.close();
+		return vs;
+	}
+	
+}

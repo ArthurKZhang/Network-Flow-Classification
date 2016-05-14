@@ -1,0 +1,94 @@
+package arthur.dao.Mongo;
+
+import java.util.LinkedList;
+import java.util.List;
+
+import org.bson.Document;
+
+import com.mongodb.MongoClient;
+import com.mongodb.client.FindIterable;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoCursor;
+import com.mongodb.client.MongoDatabase;
+
+import arthur.bean.data.FlowFeatureVector;
+import arthur.bean.data.IPPacket;
+import arthur.bean.data.ThreeTuple;
+
+public class DBHelperTrainVector implements ConfigTrainVector {
+//	public static 
+	
+	public static void createCollection() {
+		MongoClient mongoClient = new MongoClient(HOST, PORT);
+		MongoDatabase db = mongoClient.getDatabase(DB_NAME);
+		try {
+			db.createCollection(COLLECTION_NAME);
+			System.out.println("Collection--" + COLLECTION_NAME + "--created");
+		} catch (Exception e) {
+			System.err.println(e.getClass().getName() + ": " + e.getMessage());
+		} finally {
+			mongoClient.close();
+		}
+	}
+	public static void dropCollection(){
+		MongoClient mongoClient = new MongoClient(HOST, PORT);
+		MongoDatabase db = mongoClient.getDatabase(DB_NAME);
+		db.getCollection(COLLECTION_NAME).drop();
+	}
+	public static boolean save(FlowFeatureVector fv) {
+		MongoClient mongoClient = new MongoClient(HOST, PORT);
+		MongoDatabase mongoDatabase = mongoClient.getDatabase(DB_NAME);
+		try {
+			MongoCollection<Document> collection = mongoDatabase.getCollection(COLLECTION_NAME);
+			Document fVector = new Document("desAddress",fv.get_3tuple().getDesAddress())
+					.append("desPort", fv.get_3tuple().getDesPort())
+					.append("protocol", fv.get_3tuple().getProtocol())
+					.append("pSize", fv.getSize_packet())
+					.append("bSize", fv.getSize_bytes())
+					.append("pMin", fv.getMin_size())
+					.append("pMax", fv.getMax_size())
+					.append("pMean", fv.getMean_size())
+					.append("pDev", fv.getStdDev_size())
+					.append("tMin", fv.getMin_time())
+					.append("tMax", fv.getMax_time())
+					.append("tMean", fv.getMean_time())
+					.append("tDev", fv.getStdDev_time());
+			collection.insertOne(fVector);
+			return true;
+		} catch (Exception e) {
+			System.err.println(e.getClass().getName() + ": " + e.getMessage());
+			return false;
+		}finally {
+			mongoClient.close();
+		}
+	}
+	
+	public static List<FlowFeatureVector> queryAll(){
+		MongoClient mongoClient = new MongoClient(HOST, PORT);
+		MongoDatabase db = mongoClient.getDatabase(DB_NAME);
+		FindIterable<Document> findIterable = db.getCollection(COLLECTION_NAME).find();
+		MongoCursor<Document> mongoCursor = findIterable.iterator();
+		List<FlowFeatureVector> vs = new LinkedList<>();
+		while(mongoCursor.hasNext()){  
+            Document d = mongoCursor.next();
+            FlowFeatureVector v = new FlowFeatureVector();
+            v.set_3tuple(new ThreeTuple(d.getString("desAddress"), d.getInteger("desPort"), d.getInteger("protocol")));
+            
+            v.setSize_packet(d.getInteger("pSize"));
+			v.setSize_bytes(d.getInteger("bSize"));
+
+			v.setMin_size(d.getInteger("pMin"));
+			v.setMax_size(d.getInteger("pMax"));
+			v.setMean_size(d.getDouble("pMean"));
+			v.setStdDev_size(d.getDouble("pDev"));
+			
+			v.setMin_time(d.getLong("tMin"));
+			v.setMax_time(d.getLong("tMax"));
+			v.setMean_time(d.getDouble("tMean"));
+			v.setStdDev_time(d.getDouble("tDev"));
+            vs.add(v);
+         } 
+		mongoClient.close();
+		return vs;
+	}
+}

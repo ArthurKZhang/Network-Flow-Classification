@@ -1,0 +1,11 @@
+package arthur.cmd;
+
+import java.io.InputStream;
+
+public class DataPreparation {
+	public static void preTrainData(InputStream is){
+		//清空数据库表IPPacket
+		//清空数据库表NetworkFlow
+		//解析训练数据存储文件
+	}
+}

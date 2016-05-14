@@ -2,3 +2,12 @@
 1462951638144	Copy compilation unit
 1462951665351	Copy compilation unit
 1462965442750	Delete element
+1463196442303	Delete element
+1463208362460	Copy compilation unit
+1463208404349	Copy compilation unit
+1463215583913	Delete element
+1463215588743	Delete element
+1463217564218	Rename local variable 'v'
+1463219235046	Rename local variable 'vs'
+1463220030332	Move compilation unit
+1463223582023	Rename local variable 'i'

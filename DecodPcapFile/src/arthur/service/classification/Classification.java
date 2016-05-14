@@ -1,5 +1,6 @@
 package arthur.service.classification;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -7,26 +8,47 @@ import arthur.bean.data.BoF;
 import arthur.bean.data.FlowFeatureVector;
 
 public class Classification {
-	public static String classifier(Map<String, List<FlowFeatureVector>> trainedMap, BoF testBof,Distance disMethod) {
+	/**
+	 * <类别，距离>
+	 * @param trainedMap
+	 * @param testBof
+	 * @param disMethod
+	 * @return
+	 */
+	public static Map<String, Double> classifier(Map<String, List<FlowFeatureVector>> trainedMap, BoF testBof,Distance disMethod) {
 		Object[] clas = trainedMap.keySet().toArray();
-		double[] dist = new double[clas.length - 1];
+		double[] dist = new double[clas.length];
 		for (int i = 0; i < clas.length; i++) {
 			String cla = (String) clas[i];
 			List<FlowFeatureVector> tranList = trainedMap.get(cla);
+			
+//			List<FlowFeatureVector> testlist = testBof.getFlowFeaVectorList();
+//			for(int j = 0;j<testlist.size();j++){
+//				System.out.println(testlist.get(j).getClass().getName());
+//				System.out.println(testlist.size()+testlist.get(j).getMax_size()+"&&&"+testlist.get(j));
+//			}
+//			
 			// bof 对这个cla类的距离
 			double d = disMethod.getDistance(tranList, testBof);
 			dist[i] = d;
 		}
 		// 获得最小的距离，输出
 		double temp = dist[0];
-		int index = 0;
+		int index = 0;//标记属于哪个类
+		
+		Map<String, Double> m = new HashMap<String, Double>();
 		for(int i = 0;i<dist.length;i++){
+			m.put((String)clas[i], dist[i]);
+			
 			if(dist[i]<temp){
 				temp = dist[i];
 				index = i;
 			}
 		}
 		
-		return clas[index].toString();
+		System.out.println("BOF :"+testBof.hashCode()+" Contains "
+				+testBof.getFlowFeaVectorList().size()+" Flows");
+		System.out.println("Belongs -- "+clas[index].toString());
+		return m;
 	}
 }

@@ -1,0 +1,67 @@
+package arthur.cmd;
+
+import java.io.InputStream;
+import java.util.List;
+
+import arthur.bean.data.IPPacket;
+import arthur.dao.Mongo.DBHelperBOF;
+import arthur.dao.Mongo.DBHelperFlowFeatureVector;
+import arthur.dao.Mongo.DBHelperIPPacket;
+import arthur.dao.Mongo.DBHelperNetWorkFlow;
+import arthur.dao.Mongo.DBHelperTrainVector;
+import arthur.service.datatrans.TransImp;
+import arthur.service.file2bean.PcapParser;
+
+public class DataPreparation {
+	
+	public static void preTrainData(InputStream is,String type){
+		//解析训练数据存储文件
+		pcap2DB2V(is, 1, type);
+		dropNoTrain();
+	}
+	
+	public static void preTestData(InputStream is){
+		//解析训练数据存储文件
+		pcap2DB2V(is, 2, null);
+	}
+	
+	private static void pcap2DB2V(InputStream is,int vdb, String type){
+		try {
+			PcapParser.unpack(is);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		List<IPPacket> ps = DBHelperIPPacket.queryAll();
+		TransImp.ipPacket2NetFlow2FVector(ps,vdb,type);
+	}
+	
+	private static void createAll(){
+		DBHelperIPPacket.createCollection();
+		DBHelperNetWorkFlow.createCollection();
+		DBHelperFlowFeatureVector.createCollection();
+		DBHelperBOF.createCollection();
+		DBHelperTrainVector.createCollection();
+	}
+	private static void createNoTrain(){
+		DBHelperIPPacket.createCollection();
+		DBHelperNetWorkFlow.createCollection();
+		DBHelperFlowFeatureVector.createCollection();
+		DBHelperBOF.createCollection();
+	}
+	
+	private static void dropAll(){
+		DBHelperIPPacket.dropCollection();
+		DBHelperFlowFeatureVector.dropCollection();
+		DBHelperNetWorkFlow.dropCollection();
+		DBHelperBOF.dropCollection();
+		DBHelperTrainVector.dropCollection();
+	}
+	
+	private static void dropNoTrain(){
+		DBHelperIPPacket.dropCollection();
+		DBHelperFlowFeatureVector.dropCollection();
+		DBHelperNetWorkFlow.dropCollection();
+		DBHelperBOF.dropCollection();
+	}
+}
